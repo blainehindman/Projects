@@ -1,4 +1,13 @@
-# DnD_WebApplication
+# Dungeons and Dragons Web Application
 
-Ethan, pull from master and then push to your branch "Ethan_Brnach"
-This way we have a "Blaine_Branch", "Ethan_Branch" and "Master"
+## Description
+This project is an MVC Web Application that generates player consequences based on their actions in the RPG Dungeons and Dragons.
+
+## Purpose
+The purpose of this project was to demonstrate my knowledge of MVC, AJAX, and C#.
+
+## Future Development
+I will develop the library to generate consequences based on actions at a later date.
+
+Technologies Used - VisualStudio, GitKraken, MVC
+n
