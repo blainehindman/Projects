@@ -10,4 +10,3 @@ The purpose of this project was to demonstrate my knowledge of MVC, AJAX, and C#
 I will develop the library to generate consequences based on actions at a later date.
 
 Technologies Used - VisualStudio, GitKraken, MVC
-n
