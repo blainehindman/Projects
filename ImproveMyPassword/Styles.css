@@ -1,0 +1,81 @@
+html{
+    font-family: 'Open Sans', sans-serif;
+    min-height: 100%;
+    height: auto;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+@keyframes bgcolor {
+    0% {
+        background-color: #45a3e6
+    }
+
+    30% {
+        background-color: #66bf38
+    }
+
+    60% {
+        background-color: #eb671f
+    }
+
+    90% {
+        background-color: #f36
+    }
+
+    100% {
+        background-color: #865cbf
+    }
+}
+body{
+    -webkit-animation: bgcolor 20s infinite;
+    animation: bgcolor 10s infinite;
+    -webkit-animation-direction: alternate;
+    animation-direction: alternate;
+    margin: 2ch;
+}
+
+#All_Container{
+    background: rgba(211, 211, 211, 0.6);
+    padding: 4ch;
+    margin: 4ch;
+}
+
+#Intro_1, #Intro_2, #MyTitle, #Results_Box, #All_Container{
+    text-align: center;
+}
+
+#MyTitle{
+    font-size: 8ch;
+    color: white;
+}
+
+#Intro_1{
+    font-size: 1.5ch;
+    padding-left: 12ch;
+    padding-right: 12ch;
+}
+
+#Main_Container{
+    padding: 2ch;
+    margin: 5ch;
+    border: 0.3ch solid white;
+}
+
+#Password_Input{
+    margin: auto;
+    display: block;
+    text-align: center;
+    background-color: transparent;
+    border: 0.1ch solid black;
+    width: 50%;
+    height: 1ch;
+    padding: 2ch;
+}
+
+footer{
+    font-size: 1.5ch;
+}
+

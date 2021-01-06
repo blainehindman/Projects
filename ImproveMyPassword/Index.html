@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="Styles.css">
+    <script src="jquery-3.5.1.js"></script>
+    <script src="Scrips.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+    <title>Improve My Password</title>
+</head>
+<body>
+<div id="All_Container">
+    <header>
+        <br>
+        <br>
+        <h1 id="MyTitle">Improve My Password</h1>
+        <br>
+        <P id="Intro_1">
+            Password requirements are becoming more complex in order to protect privacy, data
+            and information. As this a necessity, it also has become strenuous
+            to remember these complex passwords. Due to these password complexities, many people use
+            the same base password for everything.
+        </P>
+        <br>
+        <br>
+        <br>
+    </header>
+
+    <div id="Main_Container">
+        <p id="Intro_2">
+            Enter your base password in the input box below, and examine the suggested improvements.
+        </p>
+        <br>
+        <br>
+        <div id="Outer_Password_Box">
+            <input type="text" id="Password_Input" maxlength="30" placeholder="Enter Your Password">
+        </div>
+        <br>
+        <div id="Results_Box">
+            <p id="Required_Length" hidden>Your base password is too short, please increase it to at least 6 characters!</p>
+            <p id="Password_Suggestions" hidden><u>Password Suggestions</u></p>
+            <br>
+            <p id="S_1"></p>
+            <p id="S_2"></p>
+            <p id="S_3"></p>
+            <br>
+            <br>
+            <p>These suggested passwords are for educational purposes only.</p>
+            <br>
+            <br>
+        </div>
+    </div>
+    <br>
+    <br>
+    <footer>
+        <p>This site was developed using <a href="https://jquery.com/">jQuery</a>. Click the link to learn more.</p>
+        <p>Improve My Password - Version: 1.0.0</p>
+    </footer>
+
+
+</div>
+</body>
+</html>
