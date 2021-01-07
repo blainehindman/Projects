@@ -10,7 +10,7 @@ The purpose of this project was to demonstrate my knowledge of jQuery, along wit
 ## Future Development
 I will update this website as I continue to learn more about SEO, and the best ways to drive traffic to websites.
 
-Version - 1.0.0
+Version - 1.1.0
 
 Technologies Used - JetBrains Webstorm, GoDaddy Domains, GoDaddy Web Hosting, GitKraken
 
