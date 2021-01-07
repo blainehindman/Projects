@@ -3,6 +3,7 @@
 ## Description
 This project is coded in c++ and is designed to create usefull helper functions for c++ coding. 
 Included Functions:
+
 String_To_Stack();
 String_To_Queue();
 
