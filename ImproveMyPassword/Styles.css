@@ -38,24 +38,22 @@ body{
 }
 
 #All_Container{
-    background: rgba(211, 211, 211, 0.6);
+    background: rgba(211, 211, 211, 0.0);
     padding: 4ch;
     margin: 4ch;
 }
 
-#Intro_1, #Intro_2, #MyTitle, #Results_Box, #All_Container{
+#Intro_1, #MyTitle, #Results_Box, #All_Container{
     text-align: center;
+}
+
+#Intro_1{
+    color: white;
 }
 
 #MyTitle{
     font-size: 8ch;
     color: white;
-}
-
-#Intro_1{
-    font-size: 1.5ch;
-    padding-left: 12ch;
-    padding-right: 12ch;
 }
 
 #Main_Container{
@@ -68,11 +66,16 @@ body{
     margin: auto;
     display: block;
     text-align: center;
-    background-color: transparent;
-    border: 0.1ch solid black;
-    width: 50%;
-    height: 1ch;
+    background: rgba(211, 211, 211, 0.5);
+    border: none;
+    width: 70%;
+    height: auto;
     padding: 2ch;
+    font-size: 2.5ch;
+}
+
+textarea:focus, input:focus{
+    outline: none;
 }
 
 footer{
