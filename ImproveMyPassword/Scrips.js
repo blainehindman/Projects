@@ -185,6 +185,14 @@ $(document).ready(function(){
                 ///All Generation is Done, now we need to append the sub variables back into the base Password
                 ///
                 var Suggestion_1 = Sub_Numbers + Input_Password + Sub_Special + Sub_Caps;
+                //check if undefined slipped in and remove
+                if(Suggestion_1.includes("undefined"))
+                {
+                    while (Suggestion_1.includes("undefined"))
+                    {
+                        Suggestion_1 = Suggestion_1.replace('undefined','');
+                    }
+                }
                 console.log("Suggested Good Password: " + Suggestion_1);
 
                 //Add to HTML
@@ -326,6 +334,14 @@ $(document).ready(function(){
                 ///All Generation is Done, now we need to append the sub variables back into the base Password
                 ///
                 var Suggestion_2 = Sub_Caps + Sub_Numbers + Input_Password + Sub_Special;
+                //check if undefined slipped in and remove
+                if(Suggestion_2.includes("undefined"))
+                {
+                    while (Suggestion_2.includes("undefined"))
+                    {
+                        Suggestion_2 = Suggestion_2.replace('undefined','');
+                    }
+                }
                 console.log("Suggested Good Password: " + Suggestion_2);
 
                 //Add to HTML
@@ -501,8 +517,16 @@ $(document).ready(function(){
                 ///All Generation is Done, now we need to append the sub variables back into the base Password
                 ///
                 var Suggestion_3 = Sub_Special + Sub_Numbers + Input_Password + Sub_Caps;
-                console.log("Suggested Amazing Password: " + Suggestion_3);
+                //check if undefined slipped in and remove
+                if(Suggestion_3.includes("undefined"))
+                {
+                    while (Suggestion_3.includes("undefined"))
+                    {
+                        Suggestion_3 = Suggestion_3.replace('undefined','');
+                    }
+                }
 
+                console.log("Suggested Amazing Password: " + Suggestion_3);
                 //Add to HTML
                 $("#S_3").empty();
                 $("#S_3").append("Amazing Password: " + "<b>" + Suggestion_3 + "</b>");
