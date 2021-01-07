@@ -21,7 +21,26 @@ void String_To_Stack()
 		Current_Char = User_Input[j];
 		cout << Current_Char << endl;
 	}
+}
 
+void String_To_Queue()
+{
+	string User_Input;
+	char Current_Char;
+	queue <char> NewQueue;
+	cout << "Enter Your String:" << endl;
+	cin >> User_Input;
+	cout << "" << endl;
+
+	cout << "Queue:" << endl;
+	for (int i = 0; i <= User_Input.length(); i++)
+	{
+		Current_Char = User_Input[i];
+		NewQueue.push(Current_Char);
+		cout << Current_Char;
+		cout << " ";
+	}
+	cout << "" << endl;
 }
 
 void Menu()
@@ -36,6 +55,11 @@ void Menu()
 		if (Menu_Choice == "String_To_Stack")
 		{
 			String_To_Stack();
+		}
+
+		if (Menu_Choice == "String_To_Queue")
+		{
+			String_To_Queue();
 		}
 	}
 }
