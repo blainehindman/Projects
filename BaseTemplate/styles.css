@@ -1,0 +1,88 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: auto;
+    font-family: 'Open Sans', sans-serif;
+    /*Background code*/
+    -webkit-animation: bgcolor 20s infinite;
+    animation: bgcolor 10s infinite;
+    -webkit-animation-direction: alternate;
+    animation-direction: alternate;
+}
+
+/*Background code*/
+@keyframes bgcolor {
+    0% {
+        background-color: #45a3e6
+    }
+
+    30% {
+        background-color: #66bf38
+    }
+
+    60% {
+        background-color: #eb671f
+    }
+
+    90% {
+        background-color: #f36
+    }
+
+    100% {
+        background-color: #865cbf
+    }
+}
+
+/*Top Nav*/
+.topnav {
+    overflow: hidden;
+    background-color: rgba(46, 49, 49, 0.5);
+}
+
+/*Top Nav links*/
+.topnav a {
+    float: left;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    padding: 15px 30px;
+}
+
+.topnav a:hover {
+    color: black;
+}
+
+.topnav-right {
+    float: right;
+    font-size: medium;
+}
+
+/*Adjust for media screen*/
+@media screen and (max-width: 660px) {
+    .topnav-right {
+        display: none;
+    }
+}
+
+
+/*Content*/
+.Content {
+    width: auto;
+    height: auto;
+    padding: 15px 30px;
+    margin: 100px;
+    background-color: lightgrey;
+    text-align: center;
+}
+
+/*Footer*/
+.footer {
+    overflow: hidden;
+    left: 0;
+    bottom: 0;
+    width: auto;
+    background-color: rgba(46, 49, 49, 0.5);
+    color: white;
+    text-align: center;
+    font-size: 13px;
+}
