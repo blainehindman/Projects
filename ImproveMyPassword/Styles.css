@@ -1,13 +1,16 @@
-html{
-    font-family: 'Open Sans', sans-serif;
-    min-height: 100%;
+body {
+    margin: 0;
+    padding: 0;
     height: auto;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
+    font-family: 'Open Sans', sans-serif;
+    /*Background code*/
+    -webkit-animation: bgcolor 20s infinite;
+    animation: bgcolor 10s infinite;
+    -webkit-animation-direction: alternate;
+    animation-direction: alternate;
 }
 
+/*Background code*/
 @keyframes bgcolor {
     0% {
         background-color: #45a3e6
@@ -29,49 +32,54 @@ html{
         background-color: #865cbf
     }
 }
-body{
-    -webkit-animation: bgcolor 20s infinite;
-    animation: bgcolor 10s infinite;
-    -webkit-animation-direction: alternate;
-    animation-direction: alternate;
-    margin: 2ch;
+
+/*Top Nav*/
+.topnav {
+    overflow: hidden;
+    background-color: rgba(46, 49, 49, 0.5);
 }
 
-#All_Container{
-    background: rgba(211, 211, 211, 0.0);
-    padding: 4ch;
-    margin: 4ch;
-}
-
-#Intro_1, #MyTitle, #Results_Box, #All_Container{
+/*Top Nav links*/
+.topnav a {
+    float: left;
+    color: white;
     text-align: center;
+    text-decoration: none;
+    padding: 15px 30px;
 }
 
-#Intro_1{
-    color: white;
+.topnav a:hover {
+    color: black;
 }
 
-#MyTitle{
-    font-size: 8ch;
-    color: white;
+.topnav-right {
+    float: right;
+    font-size: medium;
 }
 
-#Main_Container{
-    padding: 2ch;
-    margin: 5ch;
-    border: 0.3ch solid white;
+/*Main Content improve my password*/
+#Main-Content h1{
+    font-size: 50px;
+}
+
+#Main-Content h3{
+    font-size: 15px;
 }
 
 #Password_Input{
     margin: auto;
     display: block;
     text-align: center;
-    background: rgba(211, 211, 211, 0.5);
+    background: rgba(250, 250, 250, 1);
     border: none;
-    width: 70%;
+    width: 90%;
     height: auto;
     padding: 2ch;
-    font-size: 2.5ch;
+    font-size: 35px;
+}
+
+#S_1, #S_2, #S_3{
+    font-size: 30px;
 }
 
 textarea:focus, input:focus{
@@ -80,5 +88,36 @@ textarea:focus, input:focus{
 
 footer{
     font-size: 1.5ch;
+}
+
+
+/*Adjust for media screen*/
+@media screen and (max-width: 660px) {
+    .topnav-right {
+        display: none;
+    }
+}
+
+
+/*Content*/
+.Content {
+    width: auto;
+    height: auto;
+    padding: 15px 30px;
+    margin: 100px;
+    background-color: lightgrey;
+    text-align: center;
+}
+
+/*Footer*/
+.footer {
+    overflow: hidden;
+    left: 0;
+    bottom: 0;
+    width: auto;
+    background-color: rgba(46, 49, 49, 0.5);
+    color: white;
+    text-align: center;
+    font-size: 13px;
 }
 
