@@ -96,11 +96,6 @@ footer{
     .topnav-right {
         display: none;
     }
-    .Content {
-        padding: 0;
-        margin: 0;
-        background-color: bgcolor;
-    }
 }
 
 
@@ -112,6 +107,7 @@ footer{
     margin: 100px;
     background-color: lightgrey;
     text-align: center;
+    font-size: auto;
 }
 
 /*Footer*/
