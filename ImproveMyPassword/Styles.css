@@ -96,6 +96,11 @@ footer{
     .topnav-right {
         display: none;
     }
+    .Content {
+        padding: 0;
+        margin: 0;
+        background-color: bgcolor;
+    }
 }
 
 
