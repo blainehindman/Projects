@@ -181,7 +181,9 @@
     <Content Include="Content\Images\campus.jpg" />
     <Content Include="Content\Images\FIZ-Logo-396x328.png" />
     <Content Include="Content\Images\FIZ-Logo-396x328%28white%29.png" />
+    <Content Include="Content\Images\gameday.jpg" />
     <Content Include="Content\Images\rfid.png" />
+    <Content Include="Content\Images\wsu-signature-vertical.svg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

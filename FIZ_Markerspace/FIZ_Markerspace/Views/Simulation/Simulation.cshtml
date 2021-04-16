@@ -18,6 +18,10 @@
         display: inline-block;
         align-content: center;
     }
+    #SIM4_Text, #SIM_4 {
+        display: inline-block;
+        align-content: center;
+    }
 </style>
 
 <h2>Beta Simulation</h2>
@@ -56,6 +60,17 @@
 
         <img src="~/Content/Images/rfid.png" id="SIM_3" style="height:150px; float:right" />
     </div>
+    <div id="Simulation-4" class="Simulation" style="background-color: darkgrey; padding:2%;">
+        <div id="SIM4_Text">
+            <h3>Simulation 4</h3>
+            <h4>Name: John Doe</h4>
+            <h6>RFID: 98765432110</h6>
+            <h6>Target Room: Wood Shop</h6>
+            <h6>Target Machine: Sander</h6>
+        </div>
+
+        <img src="~/Content/Images/rfid.png" id="SIM_4" style="height:150px; float:right" />
+    </div>
 </div>
 
 <script>
@@ -75,7 +90,11 @@
                 RFID_TAG = "98765432109"
                 MACHINE_NAME = "Metal Cutter"
             }
-            debugger;
+            if (Simulation == "SIM_4") {
+                RFID_TAG = "98765432110"
+                MACHINE_NAME = "Sander"
+            }
+
              $.ajax({
                 type: "POST",
                 url: '@Url.Action("Check_RFID")',

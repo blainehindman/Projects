@@ -29,6 +29,9 @@ namespace FIZ_Markerspace.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             User user = db.Users.Find(id);
+            dynamic User_Details_Model = new ExpandoObject();
+            User_Details_Model.user = user;
+            User_Details_Model.room_access = db.RoomAccesses.All(room => room.user_id == user.user_id);
             if (user == null)
             {
                 return HttpNotFound();
