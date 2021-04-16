@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
+using System.Dynamic;
 using System.Web.Mvc;
 using FIZ_Markerspace.Models;
 
@@ -38,7 +39,10 @@ namespace FIZ_Markerspace.Controllers
         // GET: Machines/Create
         public ActionResult Create_Machine()
         {
-            return View();
+            dynamic Create_Machine_Model = new ExpandoObject();
+            Create_Machine_Model.Rooms = db.Rooms.ToList();
+            Create_Machine_Model.Machines = db.Machines;
+            return View(Create_Machine_Model);
         }
 
         // POST: Machines/Create
@@ -50,6 +54,8 @@ namespace FIZ_Markerspace.Controllers
             User auth_user = db.Users.SingleOrDefault(user => user.wsu_id == AUTH_WSU_ID);
             //Check if Machine exits
             Machine check_exist_machinename = db.Machines.SingleOrDefault(machine => machine.machine_name == MACHINE_NAME);
+            //Get Room Infomration
+            Room get_room_data = db.Rooms.SingleOrDefault(room => room.room_name == ROOM_NAME);
 
             //check exisitance
             if (check_exist_machinename != null)
@@ -63,7 +69,7 @@ namespace FIZ_Markerspace.Controllers
                 Machine machine = new Machine();
 
                 machine.machine_id = Guid.NewGuid();
-                machine.room_id = Guid.NewGuid();
+                machine.room_id = get_room_data.room_id;
                 machine.machine_name = MACHINE_NAME;
                 machine.room_name = ROOM_NAME;
                 machine.status = 0;
@@ -91,6 +97,7 @@ namespace FIZ_Markerspace.Controllers
         // GET: Machines/Edit/5
         public ActionResult Edit_Machine(Guid? id)
         {
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -100,23 +107,33 @@ namespace FIZ_Markerspace.Controllers
             {
                 return HttpNotFound();
             }
-            return View(machine);
+            dynamic Edit_Machine_Model = new ExpandoObject();
+            Edit_Machine_Model.Rooms = db.Rooms.ToList();
+            Edit_Machine_Model.Machines = db.Machines.Find(id);
+
+            return View(Edit_Machine_Model);
         }
 
         // POST: Machines/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit_Machine([Bind(Include = "machine_id,room_id,machine_name,room_name,status,service_level,usage_time,total_usage_time,service_flag,current_threshold,role_access,hardware_service_flag")] Machine machine)
+        public JsonResult Edit_Machine(Guid MACHINE_ID, string MACHINE_NAME, string ROOM_NAME, double SERVICE_LEVEL, double CURRENT_THRESHOLD, int ROLE_ACCESS)
         {
-            if (ModelState.IsValid)
-            {
-                db.Entry(machine).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(machine);
+            Machine machine = db.Machines.Find(MACHINE_ID);
+            Room get_room_data = db.Rooms.SingleOrDefault(room => room.room_name == ROOM_NAME);
+
+            machine.machine_id = MACHINE_ID;
+            machine.room_id = get_room_data.room_id;
+            machine.machine_name = MACHINE_NAME;
+            machine.room_name = ROOM_NAME;
+            machine.service_level = SERVICE_LEVEL;
+            machine.current_threshold = CURRENT_THRESHOLD;
+            machine.role_access = ROLE_ACCESS;
+            db.Entry(machine).State = EntityState.Modified;
+            db.SaveChanges();
+
+            return Json(User);
         }
 
         // GET: Machines/Delete/5

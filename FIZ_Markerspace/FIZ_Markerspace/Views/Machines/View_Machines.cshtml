@@ -1,20 +1,20 @@
 ﻿@model IEnumerable<FIZ_Markerspace.Models.Machine>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Machines";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Machines</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create_Machine")
 </p>
+<p>
+    @Html.ActionLink("Service", "Service_Machine", "Service")
+</p>
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.room_id)
-        </th>
         <th>
             @Html.DisplayNameFor(model => model.machine_name)
         </th>
@@ -37,12 +37,6 @@
             @Html.DisplayNameFor(model => model.service_flag)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.current_threshold)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.role_access)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.hardware_service_flag)
         </th>
         <th></th>
@@ -50,9 +44,6 @@
 
 @foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.room_id)
-        </td>
         <td>
             @Html.DisplayFor(modelItem => item.machine_name)
         </td>
@@ -73,12 +64,6 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.service_flag)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.current_threshold)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.role_access)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.hardware_service_flag)

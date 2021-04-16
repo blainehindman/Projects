@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<FIZ_Markerspace.Models.User>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Users";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Users</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create_User")
@@ -29,9 +29,6 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.exp_level)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.password)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.creation_date)
@@ -63,18 +60,16 @@
             @Html.DisplayFor(modelItem => item.exp_level)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.password)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.creation_date)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.est_grad_date)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit_User", new { id=item.user_id }) |
-            @Html.ActionLink("Details", "User_Details", new { id=item.user_id }) |
-            @Html.ActionLink("Delete", "Delete_User", new { id=item.user_id })
+            @Html.ActionLink("Edit", "Edit_User", new { id = item.user_id }) |
+            @Html.ActionLink("Details", "User_Details", new { id = item.user_id }) |
+            @Html.ActionLink("Add To Room", "Add_To_Room", new { id = item.user_id }) |
+            @Html.ActionLink("Delete", "Delete_User", new { id = item.user_id })
         </td>
     </tr>
 }

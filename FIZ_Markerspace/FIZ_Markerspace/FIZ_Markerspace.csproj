@@ -129,7 +129,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LogsController.cs" />
     <Compile Include="Controllers\MachinesController.cs" />
+    <Compile Include="Controllers\ServiceController.cs" />
+    <Compile Include="Controllers\SimulationController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -178,6 +181,7 @@
     <Content Include="Content\Images\campus.jpg" />
     <Content Include="Content\Images\FIZ-Logo-396x328.png" />
     <Content Include="Content\Images\FIZ-Logo-396x328%28white%29.png" />
+    <Content Include="Content\Images\rfid.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -240,6 +244,12 @@
     <Content Include="Views\Machines\Machine_Details.cshtml" />
     <Content Include="Views\Machines\Edit_Machine.cshtml" />
     <Content Include="Views\Machines\View_Machines.cshtml" />
+    <Content Include="Views\Users\Add_To_Room.cshtml" />
+    <Content Include="Views\Simulation\Simulation.cshtml" />
+    <Content Include="Views\Logs\Machine_Log_Details.cshtml" />
+    <Content Include="Views\Logs\Service_Log_Details.cshtml" />
+    <None Include="Views\Logs\View_Logs.cshtml" />
+    <Content Include="Views\Service\Service_Machine.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

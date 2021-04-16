@@ -36,6 +36,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
                 </button>
                 @Html.ActionLink("FIZ Makerspace", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
@@ -45,7 +46,8 @@
                     <li>@Html.ActionLink("Users", "View_Users", "Users")</li>
                     <li>@Html.ActionLink("Rooms", "View_Rooms", "Rooms")</li>
                     <li>@Html.ActionLink("Machines", "View_Machines", "Machines")</li>
-                    <li>@Html.ActionLink("Logs", "", "")</li>
+                    <li>@Html.ActionLink("Logs", "View_Logs", "Logs")</li>
+                    <li>@Html.ActionLink("Beta Simulation", "Simulation", "Simulation")</li>
                 </ul>
             </div>
         </div>

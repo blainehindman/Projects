@@ -16,7 +16,7 @@ namespace FIZ_Markerspace.Models
     {
         public System.Guid service_id { get; set; }
         public System.Guid user_id { get; set; }
-        public int wsu_id { get; set; }
+        public string wsu_id { get; set; }
         public string first_name { get; set; }
         public string last_name { get; set; }
         public string room_name { get; set; }
@@ -24,5 +24,6 @@ namespace FIZ_Markerspace.Models
         public string machine_name { get; set; }
         public string time_stamp { get; set; }
         public string notes { get; set; }
+        public System.Guid room_id { get; set; }
     }
 }

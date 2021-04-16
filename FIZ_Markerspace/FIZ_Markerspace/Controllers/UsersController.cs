@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
+using System.Dynamic;
 using System.Web.Mvc;
 using FIZ_Markerspace.Models;
 
@@ -146,6 +147,59 @@ namespace FIZ_Markerspace.Controllers
             db.SaveChanges();
 
             return Json(user);
+        }
+
+        public ActionResult Add_To_Room(Guid? id)
+        {
+            dynamic Add_To_Room_Model = new ExpandoObject();
+            Add_To_Room_Model.Rooms = db.Rooms.ToList();
+            Add_To_Room_Model.User = db.Users.Find(id);
+            return View(Add_To_Room_Model);
+        }
+
+        [HttpPost]
+        public JsonResult Add_To_Room(string AUTH_WSU_ID, string AUTH_PASSWORD, Guid USER_ID, string WSU_ID, string FIRST_NAME, string LAST_NAME, int ROLE, int EXP_LEVEL, string ROOM_NAME)
+        {
+            //Authentication User Data
+            User auth_user = db.Users.SingleOrDefault(user => user.wsu_id == AUTH_WSU_ID);
+            //Room Data
+            Room findroom = db.Rooms.SingleOrDefault(room => room.room_name == ROOM_NAME);
+            //Check if already exisits
+            RoomAccess check_roomAccess = db.RoomAccesses.SingleOrDefault(room => room.room_name == ROOM_NAME && room.user_id == USER_ID);
+
+            //check exisitance
+            if (check_roomAccess != null)
+            {
+                var return_data = new { result = false, message = "This WSU ID already has access to this room!" };
+                return Json(return_data, JsonRequestBehavior.AllowGet);
+            }
+
+            if ((auth_user != null && auth_user.password == AUTH_PASSWORD))
+            {
+                RoomAccess roomAccess = new RoomAccess();
+
+                roomAccess.room_access_id = Guid.NewGuid();
+                roomAccess.room_id = findroom.room_id;
+                roomAccess.room_name = findroom.room_name;
+                roomAccess.user_id = USER_ID;
+                roomAccess.wsu_id = WSU_ID;
+                roomAccess.first_name = FIRST_NAME;
+                roomAccess.last_name = LAST_NAME;
+                roomAccess.role = ROLE;
+                roomAccess.exp_level = EXP_LEVEL;
+
+                db.RoomAccesses.Add(roomAccess);
+                db.SaveChanges();
+
+                var return_data = new { result = true, message = "You added " + FIRST_NAME + " " + LAST_NAME + "!" };
+                return Json(return_data, JsonRequestBehavior.AllowGet);
+            }
+
+            else
+            {
+                var return_data = new { result = false, message = "Your authentication credentials failed!" };
+                return Json(return_data, JsonRequestBehavior.AllowGet);
+            }
         }
 
         // GET: Users/Delete/5

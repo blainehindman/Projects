@@ -62,6 +62,7 @@
     <EntitySetMapping Name="ServiceLogs">
       <EntityTypeMapping TypeName="fiz_markerspaceModel.ServiceLog">
         <MappingFragment StoreEntitySet="ServiceLog">
+          <ScalarProperty Name="room_id" ColumnName="room_id" />
           <ScalarProperty Name="service_id" ColumnName="service_id" />
           <ScalarProperty Name="user_id" ColumnName="user_id" />
           <ScalarProperty Name="wsu_id" ColumnName="wsu_id" />

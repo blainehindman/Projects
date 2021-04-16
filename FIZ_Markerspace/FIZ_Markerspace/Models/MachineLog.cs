@@ -16,14 +16,14 @@ namespace FIZ_Markerspace.Models
     {
         public System.Guid machine_log_id { get; set; }
         public System.Guid user_id { get; set; }
-        public int wsu_id { get; set; }
+        public string wsu_id { get; set; }
         public string first_name { get; set; }
         public string last_name { get; set; }
         public System.Guid room_id { get; set; }
         public string room_name { get; set; }
         public System.Guid machine_id { get; set; }
         public string machine_name { get; set; }
-        public int time_used { get; set; }
+        public double time_used { get; set; }
         public string end_time_stamp { get; set; }
     }
 }
