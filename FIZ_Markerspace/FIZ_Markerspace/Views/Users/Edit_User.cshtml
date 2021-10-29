@@ -67,7 +67,7 @@
     <label for="est_grad_date">Estimated Graduation Date</label>
     <input id="est_grad_date" name="est_grad_date" value="@est_grad_date" class="form-control" type="date" />
     <br />
-    <input id="user_submit" type="button" value="Submit" />
+    <input type="button" value="Submit" data-toggle="modal" data-target="#myModal" />
 </form>
 
 <div>
@@ -76,7 +76,10 @@
 
 <script>
     $(document).ready(function () {
-        $("#user_submit").click(function (event) {
+        $("#submit_authentication").click(function (event) {
+            //Authentication Data
+            var AUTH_WSU_ID = $("#auth_wsu_id").val();
+            var AUTH_PASSWORD = $("#auth_password").val();
             //User Data
             var USER_ID = "@user_id";
             var WSU_ID = $("#wsu_id").val();
@@ -89,11 +92,12 @@
             var CREATION_DATE = $("#creation_date").val();
             var EST_GRAD_DATE = $("#est_grad_date").val();
 
-            debugger;
             $.ajax({
                 type: "POST",
                 url: '@Url.Action("Edit_User")',
                 data: JSON.stringify({
+                    //Authentication Data
+                    AUTH_WSU_ID: AUTH_WSU_ID, AUTH_PASSWORD: AUTH_PASSWORD,
                     //User Data
                     USER_ID: USER_ID,
                     WSU_ID: WSU_ID, RFID_TAG: RFID_TAG, FIRST_NAME: FIRST_NAME,

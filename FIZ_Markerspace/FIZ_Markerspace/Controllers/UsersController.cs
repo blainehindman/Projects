@@ -133,24 +133,60 @@ namespace FIZ_Markerspace.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public JsonResult Edit_User(Guid USER_ID, string WSU_ID, string RFID_TAG, string FIRST_NAME, string LAST_NAME, int ROLE, int EXP_LEVEL, string PASSWORD, string CREATION_DATE, string EST_GRAD_DATE)
+        public JsonResult Edit_User(string AUTH_WSU_ID, string AUTH_PASSWORD, Guid USER_ID, string WSU_ID, string RFID_TAG, string FIRST_NAME, string LAST_NAME, int ROLE, int EXP_LEVEL, string PASSWORD, string CREATION_DATE, string EST_GRAD_DATE)
         {
-            User user = db.Users.Find(USER_ID);
-            user.wsu_id = WSU_ID;
-            user.rfid_tag = RFID_TAG;
-            user.first_name = FIRST_NAME;
-            user.last_name = LAST_NAME;
-            user.role = ROLE;
-            user.exp_level = EXP_LEVEL;
-            user.password = PASSWORD;
-            user.creation_date = CREATION_DATE;
-            user.est_grad_date = EST_GRAD_DATE;
+            //Authentication User Data
+            User auth_user = db.Users.SingleOrDefault(user => user.wsu_id == AUTH_WSU_ID);
+            User _user = db.Users.Find(USER_ID);
+            //Check if WSU ID and RFID exits
+            User check_exist_wsuid = db.Users.SingleOrDefault(user => user.wsu_id == WSU_ID);
+            User check_exist_rfid = db.Users.SingleOrDefault(user => user.rfid_tag == RFID_TAG);
 
-            db.Entry(user).State = EntityState.Modified;
-            db.SaveChanges();
+            //check exisitance
+            //if user changes their wsu id, but one exisits already for new number
+            if ((check_exist_wsuid != null) && (WSU_ID != _user.wsu_id))
+            {
+                return null;
+            }
+            //if user changes their rfid, but one exisits already for new number
+            if ((check_exist_rfid != null) && (RFID_TAG != _user.rfid_tag))
+            {
+                return null;
+            }
 
-            return Json(user);
+            //set password to null if student
+            if (ROLE == 1)
+            {
+                PASSWORD = null;
+            }
+
+            if ((auth_user != null && auth_user.password == AUTH_PASSWORD))
+            {
+                User user = db.Users.Find(USER_ID);
+
+                if (auth_user.role >= ROLE)
+                {
+                    user.wsu_id = WSU_ID;
+                    user.rfid_tag = RFID_TAG;
+                    user.first_name = FIRST_NAME;
+                    user.last_name = LAST_NAME;
+                    user.role = ROLE;
+                    user.exp_level = EXP_LEVEL;
+                    user.password = PASSWORD;
+                    user.creation_date = CREATION_DATE;
+                    user.est_grad_date = EST_GRAD_DATE;
+
+                    db.Entry(user).State = EntityState.Modified;
+                    db.SaveChanges();
+
+                    return Json(user);
+                }
+
+            }
+            var return_data = new { result = false, message = "Somthing went wrong!" };
+            return Json(return_data, JsonRequestBehavior.AllowGet);
         }
+
 
         public ActionResult Add_To_Room(Guid? id)
         {
@@ -218,6 +254,35 @@ namespace FIZ_Markerspace.Controllers
                 return HttpNotFound();
             }
             return View(user);
+        }
+
+        public JsonResult Delete_Helper(string AUTH_WSU_ID, string AUTH_PASSWORD, string WSU_ID)
+        {
+            //Authentication User Data
+            User auth_user = db.Users.SingleOrDefault(user => user.wsu_id == AUTH_WSU_ID);
+            //Check if WSU ID and RFID exits
+            User check_exist_wsuid = db.Users.SingleOrDefault(user => user.wsu_id == WSU_ID);
+
+            if(check_exist_wsuid == null || auth_user == null)
+            {
+                var return_data = new { result = false, message = "Your authentication credentials failed!" };
+                return Json(return_data, JsonRequestBehavior.AllowGet);
+            }
+            if((check_exist_wsuid != null) && (auth_user != null) && (auth_user.password == AUTH_PASSWORD))
+            {
+                if(auth_user.role >= check_exist_wsuid.role)
+                {
+                    DeleteConfirmed(check_exist_wsuid.user_id);
+                    var return_data = new { result = true, message = "The selected user has been deleted!" };
+                    return Json(return_data, JsonRequestBehavior.AllowGet);
+                }
+                return null;
+            }
+            else
+            {
+                var return_data = new { result = false, message = "Your authentication credentials failed!" };
+                return Json(return_data, JsonRequestBehavior.AllowGet);
+            }
         }
 
         // POST: Users/Delete/5
