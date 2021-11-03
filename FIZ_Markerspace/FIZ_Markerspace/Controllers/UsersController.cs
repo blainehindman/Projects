@@ -213,7 +213,7 @@ namespace FIZ_Markerspace.Controllers
                 return Json(return_data, JsonRequestBehavior.AllowGet);
             }
 
-            if ((auth_user != null && auth_user.password == AUTH_PASSWORD))
+            if ((auth_user != null) && (auth_user.password == AUTH_PASSWORD) && (auth_user.exp_level >= 3))
             {
                 RoomAccess roomAccess = new RoomAccess();
 

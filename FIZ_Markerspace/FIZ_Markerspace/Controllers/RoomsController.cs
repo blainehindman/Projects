@@ -2,6 +2,7 @@
 using System;
 using System.Data.Entity;
 using System.Linq;
+using System.Dynamic;
 using System.Net;
 using System.Web.Mvc;
 
@@ -102,16 +103,48 @@ namespace FIZ_Markerspace.Views
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public JsonResult Edit_Room(Guid ROOM_ID, string ROOM_NAME)
+        public JsonResult Edit_Room(string AUTH_WSU_ID, string AUTH_PASSWORD, Guid ROOM_ID, string ROOM_NAME)
         {
+            User auth_user = db.Users.SingleOrDefault(user => user.wsu_id == AUTH_WSU_ID);
+            //Check if Room exits
+            Room check_exist_roomname = db.Rooms.SingleOrDefault(_room => _room.room_name == ROOM_NAME);
+
             Room room = db.Rooms.Find(ROOM_ID);
-            room.room_id = ROOM_ID;
-            room.room_name = ROOM_NAME;
 
-            db.Entry(room).State = EntityState.Modified;
-            db.SaveChanges();
+            //check exisitance
+            if ((check_exist_roomname != null) && (ROOM_NAME != room.room_name) )
+            {
+                var return_data = new { result = false, message = "This Room Name already exists!" };
+                return Json(return_data, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                if ((auth_user != null && auth_user.password == AUTH_PASSWORD))
+                {
+                    if (auth_user.role >= 3)
+                    {
+                        room.room_id = ROOM_ID;
+                        room.room_name = ROOM_NAME;
 
-            return Json(room);
+                        db.Entry(room).State = EntityState.Modified;
+                        db.SaveChanges();
+
+                        var return_data = new { result = true, message = "You added " + ROOM_NAME + " " + "!" };
+                        return Json(return_data, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        var return_data = new { result = false, message = "Your authentication credentials failed!" };
+                        return Json(return_data, JsonRequestBehavior.AllowGet);
+                    }
+                }
+                else
+                {
+                    var return_data = new { result = false, message = "Your authentication credentials failed!" };
+                    return Json(return_data, JsonRequestBehavior.AllowGet);
+                }
+
+            }
         }
 
         // GET: Rooms/Delete/5

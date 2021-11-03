@@ -64,10 +64,9 @@ namespace FIZ_Markerspace.Controllers
                 return Json(return_data, JsonRequestBehavior.AllowGet);
             }
 
-            if ((auth_user != null && auth_user.password == AUTH_PASSWORD))
+            if ((auth_user != null) && (auth_user.password == AUTH_PASSWORD) && auth_user.exp_level >= 3)
             {
                 Machine machine = new Machine();
-
                 machine.machine_id = Guid.NewGuid();
                 machine.room_id = get_room_data.room_id;
                 machine.machine_name = MACHINE_NAME;
@@ -118,22 +117,32 @@ namespace FIZ_Markerspace.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public JsonResult Edit_Machine(Guid MACHINE_ID, string MACHINE_NAME, string ROOM_NAME, double SERVICE_LEVEL, double CURRENT_THRESHOLD, int ROLE_ACCESS)
+        public JsonResult Edit_Machine(string AUTH_WSU_ID, string AUTH_PASSWORD, Guid MACHINE_ID, string MACHINE_NAME, string ROOM_NAME, double SERVICE_LEVEL, double CURRENT_THRESHOLD, int ROLE_ACCESS)
         {
+            User auth_user = db.Users.SingleOrDefault(user => user.wsu_id == AUTH_WSU_ID);
             Machine machine = db.Machines.Find(MACHINE_ID);
             Room get_room_data = db.Rooms.SingleOrDefault(room => room.room_name == ROOM_NAME);
 
-            machine.machine_id = MACHINE_ID;
-            machine.room_id = get_room_data.room_id;
-            machine.machine_name = MACHINE_NAME;
-            machine.room_name = ROOM_NAME;
-            machine.service_level = SERVICE_LEVEL;
-            machine.current_threshold = CURRENT_THRESHOLD;
-            machine.role_access = ROLE_ACCESS;
-            db.Entry(machine).State = EntityState.Modified;
-            db.SaveChanges();
+            if ((auth_user != null) && (auth_user.password == AUTH_PASSWORD) && auth_user.exp_level >= 3)
+            {
+                machine.machine_id = MACHINE_ID;
+                machine.room_id = get_room_data.room_id;
+                machine.machine_name = MACHINE_NAME;
+                machine.room_name = ROOM_NAME;
+                machine.service_level = SERVICE_LEVEL;
+                machine.current_threshold = CURRENT_THRESHOLD;
+                machine.role_access = ROLE_ACCESS;
+                db.Entry(machine).State = EntityState.Modified;
+                db.SaveChanges();
 
-            return Json(User);
+                return Json(User);
+            }
+            else
+            {
+                var return_data = new { result = false, message = "Your authentication credentials failed!" };
+                return Json(return_data, JsonRequestBehavior.AllowGet);
+            }
+
         }
 
         // GET: Machines/Delete/5

@@ -54,7 +54,7 @@
         <option value="5">IT</option>
     </select>
     <br />
-    <input id="machine_submit" type="button" value="Submit" />
+    <input type="button" value="Submit" data-toggle="modal" data-target="#myModal" />
 </form>
 
 
@@ -64,7 +64,7 @@
 
 <script>
     $(document).ready(function () {
-        $("#machine_submit").click(function (event) {
+        $("#submit_authentication").click(function (event) {
             //Authentication Data
             var AUTH_WSU_ID = $("#auth_wsu_id").val();
             var AUTH_PASSWORD = $("#auth_password").val();
@@ -80,6 +80,8 @@
                 type: "POST",
                 url: '@Url.Action("Edit_Machine")',
                 data: JSON.stringify({
+                    //Authentication Data
+                    AUTH_WSU_ID: AUTH_WSU_ID, AUTH_PASSWORD: AUTH_PASSWORD,
                     //Machine Data
                     MACHINE_ID: MACHINE_ID,
                     MACHINE_NAME: MACHINE_NAME, ROOM_NAME: ROOM_NAME, SERVICE_LEVEL: SERVICE_LEVEL,
