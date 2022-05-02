@@ -1,94 +1,342 @@
 <!DOCTYPE html>
-<html lang="en">
 <head>
-    <!--Browser Data-->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="Description" content="Password requirements are crucial to protect privacy, data, and information. Enter your password and see how your password can be improved.">
-    <link rel="stylesheet" href="Styles.css">
-    <link rel=“canonical” href="http://www.improvemypassword.com/">
-    <script src="jquery-3.5.1.js"></script>
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script data-ad-client="ca-pub-1426691684705792" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <script src="Scrips.js"></script>
-    <title>Base Website Template</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
+<style>
+  body {
+  margin: 0;
+  padding: 0;
+  height: auto;
+  font-family: "Open Sans", sans-serif;
+  /*Background code*/
+  -webkit-animation: bgcolor 20s infinite;
+  animation: bgcolor 10s infinite;
+  -webkit-animation-direction: alternate;
+  animation-direction: alternate;
+  }
+
+  /*Background code*/
+  @keyframes bgcolor {
+    0% {
+      background-color: #45a3e6;
+    }
+
+    30% {
+      background-color: #66bf38;
+    }
+
+    60% {
+      background-color: #eb671f;
+    }
+
+    90% {
+      background-color: #f36;
+    }
+
+    100% {
+      background-color: #865cbf;
+    }
+  }
+
+  /*Main Content improve my password*/
+  #Main-Content h1 {
+    font-size: 50px;
+  }
+
+  #Main-Content h3 {
+    font-size: 15px;
+  }
+
+  #Password_Input {
+    margin: auto;
+    display: block;
+    text-align: center;
+    background: rgba(250, 250, 250, 1);
+    border: none;
+    width: 90%;
+    height: auto;
+    padding: 2ch;
+    font-size: 35px;
+  }
+
+  textarea:focus,
+  input:focus {
+    outline: none;
+  }
+
+  /*Adjust for media screen*/
+  @media screen and (max-width: 660px) {
+    .topnav-right {
+      display: none;
+    }
+  }
+
+  /*Content*/
+  .Content {
+    width: auto;
+    height: auto;
+    padding: 15px 30px;
+    margin: 100px;
+    background-color: lightgrey;
+    text-align: center;
+    font-size: auto;
+  }
+
+  #Suggestion_1, #Suggestion_2, #Suggestion_3 {
+    font-size: 25px;
+  }
+
+
+</style>
 <body>
 
-     <!--Browser Data-->
-    <div class="topnav">
-        <a class="active" href="#Main-Content">Improve My Password</a>
-        <div class="topnav-right">
-            <a href="#Extra-Content-1">Security</a>
-            <a href="#Extra-Content-2">Hacking</a>
-            <a href="#footer">References</a>
-        </div>
-    </div>
-
-    <a name="Main-Content"></a>
-    <div id="Main-Content" class="Content">
-        <h1>Improve My Password</h1>
-        <div id="ImproveMyPassword">
-            <h3 id="Intro_1">
-                Enter your base password in the input box below, and examine the suggested improvements.
-            </h3>
-            <br>
-            <br>
-            <div id="Outer_Password_Box">
-                <input type="text" id="Password_Input" maxlength="20" placeholder="Enter Your Password">
-            </div>
-            <br>
-            <div id="Results_Box">
-                <p id="Required_Length" hidden>Your base password is too short, please increase it to at least 6 characters!</p>
-                <p id="Password_Suggestions" hidden><u>Password Suggestions</u></p>
-                <br>
-                <p id="S_1"></p>
-                <p id="S_2"></p>
-                <p id="S_3"></p>
-                <br>
-                <br>
-                <br>
-                <br>
-            </div>
-        </div>
-    </div>
-
-    <a name="Extra-Content-1"></a>
-    <div id="Extra-Content-1" class="Content">
-        <h1>"The Importance of Strong, Secure Passwords"</h1>
-        <p>
-            "Unauthorized access is a potentially major problem for anyone who uses a computer or high-tech devices such as smartphones or tablets.
-            The consequences for victims of these break-ins can include the loss of valuable data such as presentations, emails, and music.
-            Victims may also have their bank account information, money, or even their identity stolen. Moreover, unauthorized users may use someone
-            else's computer to break the law, which could put the victim in legal trouble..."
-        </p>
-        <p>
-            <a href="https://www.securedatarecovery.com/resources/the-importance-of-strong-secure-passwords">View Article</a>
-        </p>
-    </div>
-
-    <a name="Extra-Content-2"></a>
-    <div id="Extra-Content-2" class="Content">
-        <h1>"18 Ways to Secure Your Devices From Hackers"</h1>
-        <p>
-            "The growth of the World Wide Web in the 1990s introduced new possibilities and spawned new industries, but it also brought about new downsides
-            of connectivity. Tons of spam started to infiltrate email accounts, and computer viruses wreaked havoc on business networks. A new threat known
-            as computer hacking extended the definition of thievery to include infiltrating your computer, stealing personal information, tricking you into 
-            revealing private data, and using that data to steal and extort personal information, such as business secrets, bank account credentials and
-            even people's identities..."
-        </p>
-        <p>
-            <a href="https://www.businessnewsdaily.com/11213-secure-computer-from-hackers.html">View Article</a>
-        </p>
-    </div>
-
-    <div class="footer", id="footer">
-        <p>These suggested passwords are for educational purposes only.</p>
-        <p>This site was developed using <a href="https://jquery.com/">jQuery</a>. Click the link to learn more.</p>
-        <p>Improve My Password - Version: 2.0.0</p>
-        <p>Basilisk Byte</p>
-    </div>
+  <div id="Main-Content" class="Content">
+      <h1>Improve My Password</h1>
+      <div id="ImproveMyPassword">
+          <h3 id="Intro_1">
+              Enter your base password in the input box below, and examine the suggested improvements.
+          </h3>
+          <br>
+          <br>
+          <div id="Password_Box">
+              <input type="text" id="Password_Input" maxlength="20" placeholder="Enter Your Password">
+          </div>
+          <br>
+          <p id="Required_Length_Message" hidden>Password must be at least 8 characters!</p>
+          <p id="Suggestion_Title_1" hidden>New Great Password:</p>
+          <p id="Suggestion_1"></p>
+          <br>
+          <p id="Suggestion_Title_2" hidden>New Amazing Password:</p>
+          <p id="Suggestion_2"></p>
+          <br>
+          <p id="Suggestion_Title_3" hidden>New Impossible Password:</p>
+          <p id="Suggestion_3"></p>
+          <br>
+      </div>
+  </div>
 
 </body>
+
+<script>
+  $(document).ready(function(){
+    $("#Password_Input").on("input", function(){
+        //Variables for The users input password and its length
+        var Input_Password = $("#Password_Input").val();
+        var Password_length = Input_Password.length;
+
+        //Arrays
+        const Special_Characters_Array = ["!", "@", "#", "%", "^", "&", "*", "(", ")", "-", "_", "-", "+", "="];
+        const Numbers_Array = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
+        const Uppercase_Array = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+        const Lowercase_Array = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+
+        var Password_Analysis = Check_Password_Length(Input_Password);
+
+        if(Password_length >= 8)
+        {
+          Improved_Password_1(Password_Analysis, Input_Password, Password_length);
+          Improved_Password_2(Password_Analysis, Input_Password, Password_length);
+          Improved_Password_3(Password_Analysis, Input_Password, Password_length);
+        }
+        if(Password_length == 0)
+        {
+          //Special case to 
+          //Hide/clear Suggestions titles
+          $("#Suggestion_Title_1").hide();
+          $("#Suggestion_Title_2").hide();
+          $("#Suggestion_Title_3").hide();
+        }
+
+        function Check_Password_Length(Input_Password)
+        {
+          if((Password_length < 8) && (Password_length != 0))
+          {
+            //Show length message
+            $("#Required_Length_Message").show();
+            //Hide/clear Suggestions
+            $("#Suggestion_Title_1").hide();
+            document.getElementById("Suggestion_1").innerHTML = "";
+
+            $("#Suggestion_Title_2").hide();
+            document.getElementById("Suggestion_2").innerHTML = "";
+
+            $("#Suggestion_Title_3").hide();
+            document.getElementById("Suggestion_3").innerHTML = "";
+
+            return null;
+          }
+          else
+          {
+            //Hide length message
+            $("#Required_Length_Message").hide();
+            //Show Suggestions
+            $("#Suggestion_Title_1").show();
+            $("#Suggestion_Title_2").show();
+            $("#Suggestion_Title_3").show();
+
+            var GetCounts = Check_Special_Num_Alpha(Input_Password, Password_length);
+            return{
+              Special: GetCounts.Special, Number: GetCounts.Number, Uppercase: GetCounts.Uppercase, Lowercase: GetCounts.Lowercase,
+            };
+          }
+        }
+
+        function Check_Special_Num_Alpha(Input_Password, Password_length)
+        {
+          var Special_Character_Count = 0;
+          var Number_Count = 0;
+          var Uppercase_Count = 0;
+          var Lowercase_Count = 0;
+
+          for(let i =0; i <= Password_length; i++)
+          {
+            if(Special_Characters_Array.includes(Input_Password[i]))
+            {
+              Special_Character_Count = Special_Character_Count + 1;
+            }
+            if(Numbers_Array.includes(Input_Password[i]))
+            {
+              Number_Count = Number_Count + 1;
+            }
+            if(Uppercase_Array.includes(Input_Password[i]))
+            {
+              Uppercase_Count = Uppercase_Count + 1;
+            }
+            if(Lowercase_Array.includes(Input_Password[i]))
+            {
+              Lowercase_Count = Lowercase_Count + 1;
+            }
+          }
+
+          return{
+            Special: Special_Character_Count, Number: Number_Count, Uppercase: Uppercase_Count, Lowercase: Lowercase_Count,
+          };
+        }
+
+        function Generate_Rand_Characters(Selected_Array, Number_Of_Characters)
+        {
+          var Random_String = "";
+          for(var i = 1; i <= Number_Of_Characters; i++)
+          {
+            Random_String = Random_String + Selected_Array[Math.floor(Math.random() * Selected_Array.length)];
+          }
+          return Random_String;
+        }
+
+        ///
+        /// Password 1
+        ///
+        function Improved_Password_1(Password_Analysis, Input_Password, Password_length)
+        {
+          debugger;
+          var New_Password = "";
+
+          if(Password_Analysis.Special < 1)
+          {
+            New_Password = New_Password + Generate_Rand_Characters(Special_Characters_Array, 1);
+          }
+
+          if(Password_Analysis.Number < 1)
+          {
+            New_Password = New_Password + Generate_Rand_Characters(Numbers_Array, 1);
+          }
+
+          if(Password_Analysis.Lowercase < 1)
+          {
+            New_Password = New_Password + Generate_Rand_Characters(Lowercase_Array, 1);
+          }
+
+          if(Password_Analysis.Uppercase < 1)
+          {
+            New_Password = New_Password + Generate_Rand_Characters(Uppercase_Array, 1);
+          }
+
+          if((Password_Analysis.Special >= 1) && (Password_Analysis.Number >= 1) && (Password_Analysis.Lowercase >= 1) && (Password_Analysis.Uppercase >= 1))
+          {
+            New_Password = New_Password + Generate_Rand_Characters(Special_Characters_Array, Math.floor(Math.random() * 3));
+          }
+
+          New_Password = Input_Password + New_Password;
+          document.getElementById("Suggestion_1").innerHTML = New_Password;
+        }
+
+
+        ///
+        /// Password 2
+        ///
+        function Improved_Password_2(Password_Analysis, Input_Password, Password_length)
+        {
+          var n = 2;
+          var New_Password = "";
+
+          if(Password_Analysis.Special < n)
+          {
+            New_Password = New_Password + Generate_Rand_Characters(Special_Characters_Array, (n - Password_Analysis.Special));
+          }
+
+          if(Password_Analysis.Number < n)
+          {
+            New_Password = New_Password + Generate_Rand_Characters(Numbers_Array, (n - Password_Analysis.Number));
+          }
+
+          if(Password_Analysis.Lowercase < n)
+          {
+            New_Password = New_Password + Generate_Rand_Characters(Lowercase_Array, (n - Password_Analysis.Lowercase));
+          }
+
+          if(Password_Analysis.Uppercase < n)
+          {
+            New_Password = New_Password + Generate_Rand_Characters(Uppercase_Array, (n - Password_Analysis.Uppercase));
+          }
+
+          if((Password_Analysis.Special >= n) && (Password_Analysis.Number >= n) && (Password_Analysis.Lowercase >= n) && (Password_Analysis.Uppercase >= n))
+          {
+            New_Password = New_Password + Generate_Rand_Characters(Special_Characters_Array, Math.floor(Math.random() * 3));
+          }
+
+          New_Password = New_Password + Input_Password;
+          document.getElementById("Suggestion_2").innerHTML = New_Password;
+        }
+
+        ///
+        /// Password 3
+        ///
+        function Improved_Password_3(Password_Analysis, Input_Password, Password_length)
+        {
+          var n = 3;
+          var New_Password = "";
+
+          if(Password_Analysis.Special < n)
+          {
+            New_Password = New_Password + Generate_Rand_Characters(Special_Characters_Array, (n - Password_Analysis.Special));
+          }
+
+          if(Password_Analysis.Number < n)
+          {
+            New_Password = New_Password + Generate_Rand_Characters(Numbers_Array, (n - Password_Analysis.Number));
+          }
+
+          if(Password_Analysis.Lowercase < n)
+          {
+            New_Password = New_Password + Generate_Rand_Characters(Lowercase_Array, (n - Password_Analysis.Lowercase));
+          }
+
+          if(Password_Analysis.Uppercase < n)
+          {
+            New_Password = New_Password + Generate_Rand_Characters(Uppercase_Array, (n - Password_Analysis.Uppercase));
+          }
+
+          if((Password_Analysis.Special >= n) && (Password_Analysis.Number >= n) && (Password_Analysis.Lowercase >= n) && (Password_Analysis.Uppercase >= n))
+          {
+            New_Password = New_Password + Generate_Rand_Characters(Special_Characters_Array, Math.floor(Math.random() * 3));
+          }
+
+          New_Password = New_Password + Input_Password + Generate_Rand_Characters(Special_Characters_Array, Math.floor(Math.random() * 3));
+          document.getElementById("Suggestion_3").innerHTML = New_Password;
+        }
+    });
+  });
+
+
+</script>
 </html>
