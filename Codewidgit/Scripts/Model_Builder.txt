@@ -1,0 +1,5 @@
+//Connection String
+"ConnectionStrings": { "CodeWidgitContext": "Data Source=DESKTOP-AT7GV7L\\SQLEXPRESS;Initial Catalog=CodeWidgitCoreDB;Integrated Security=True" }
+
+//Nugut command
+Scaffold-DbContext -Connection name=CodeWidgitContext -Provider Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -DataAnnotations -Force

@@ -1,0 +1,41 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+#navbar-logo{
+    width: 300px;
+    height: auto;
+}
+
+#signup_container {
+
+}
+#signup {
+    border: solid;
+    margin: 0 20px 0 0;
+    border-width: medium;
+    border-radius: 10px 10px;
+    border-color: #007ACC;
+}
+
+#login {
+    border: solid;
+    border-width: medium;
+    border-radius: 10px 10px;
+    border-color: #d03741;
+}
