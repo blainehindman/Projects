@@ -1,34 +1,56 @@
-﻿
-
-<div class="container-sm" id="signup_container">
-    <h1>Sign Up!</h1>
-    <form class="form-group" id="sign_up_form">
-        <div class="form-group">
-            <input class="form-control" id="sign_up_first_name" type="text" placeholder="First Name" />
-        </div>
-        <br />
-        <div class="form-group">
-            <input class="form-control" id="sign_up_last_name" type="text" placeholder="Last Name" />
-        </div>
-        <br />
-        <div class="form-group">
-            <input class="form-control" id="sign_up_username" type="text" placeholder="Username, e.g. 'BestCoder2022'" />
-        </div>
-        <br />
-        <div class="form-group">
-            <input class="form-control" id="sign_up_password" type="password" placeholder="Password" />
-        </div>
-        <br />
-        <div class="form-group">
-            <input class="form-control" id="sign_up_repassword" type="password" placeholder="Retype Password" />
-        </div>
-        <br />
-        <div class="form-group">
-            <input class="form-control" id="sign_up_birthday" type="date" placeholder="Password" />
-        </div>
-        <br />
-        <div class="form-group">
-            <input type="submit" value="Create" class="btn btn-primary" />
-        </div>
-    </form>
+﻿<div class="container-sm" id="signup_container">
+    <img id="signup_logo" src="~/lib/Images/Images/Logo_1_Rectangle.png" />
+    <h1 id="signup_title">Sign Up!</h1>
+    <div id="signup_form_content">
+        <form class="form-group">
+            <div class="form-group">
+                <input class="form-control signup_form" id="signup_first_name" type="text" placeholder="First Name" />
+            </div>
+            <br />
+            <div class="form-group">
+                <input class="form-control signup_form" id="signup_last_name" type="text" placeholder="Last Name" />
+            </div>
+            <br />
+            <div class="form-group">
+                <input class="form-control signup_form" id="signup_username" type="text" placeholder="Username, e.g. 'BestCoder2022'" />
+            </div>
+            <br />
+            <div class="form-group">
+                <input class="form-control signup_form" id="signup_password" type="password" placeholder="Password" />
+            </div>
+            <br />
+            <div class="form-group">
+                <input class="form-control signup_form" id="signup_repassword" type="password" placeholder="Retype Password" />
+            </div>
+            <br />
+            <div class="form-group">
+                <input class="form-control signup_form" id="signup_birthday" type="date" placeholder="Password" />
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-primary" id="signup_submit" />
+            </div>
+            <br />
+            <div class="form-group">
+                <p>By signing up, you agree to CodeWidgits's Terms of Service.</p>
+            </div>
+        </form>
+    </div>
+    <div id="signup_more_content">
+        <p>By creating your FREE CodeWidgit account, you will have access to the following features:</p>
+        <dl>
+            <dt>Widgit Creation</dt>
+            <dd>- Create, and upload Widgits for the community</dd>
+            <dd>- Sell your Widgits, or make them available for free</dd>
+            <dd>- Track community engagement with your Widgits</dd>
+            <dt>Widgit Search</dt>
+            <dd>- Find the perfect Widgit to make your Website stand out</dd>
+            <dd>- Buy and download Widgits securely</dd>
+            <dd>- Find FREE Widgits from community members or verified developers</dd>
+            <dd>- Engage with the community by liking, commenting, and ratting other creators Widgits</dd>
+        </dl>
+        <p id="already_have_an_account">Already have an Account? Login <a href="#">here</a>!</p>
+    </div>
+    
 </div>
+

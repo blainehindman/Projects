@@ -1,5 +1,17 @@
+:root {
+    --color-one: #007ACC; /*blue*/
+    --color-two: #1E1E1E; /*black-grey*/
+    --color-three: #D03741; /*red*/
+    --color-four: #FBCD13; /*yellow*/
+    --color-five: #F5F5F5; /*white-grey*/
+    --color-six: #008000; /*green*/
+}
+
 html {
-  font-size: 14px;
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
+    background-color: var(--color-two);
 }
 
 @media (min-width: 768px) {
@@ -8,34 +20,86 @@ html {
   }
 }
 
-html {
-  position: relative;
-  min-height: 100%;
-}
-
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background-color: var(--color-two);
 }
 
+
+/*Nav Bar CSS*/
 #navbar-logo{
     width: 300px;
     height: auto;
 }
 
-#signup_container {
-
-}
-#signup {
+#signup_btn {
     border: solid;
     margin: 0 20px 0 0;
     border-width: medium;
     border-radius: 10px 10px;
-    border-color: #007ACC;
+    border-color: var(--color-one);
+    background-color: var(--color-one);
+    color: var(--color-five);
+    font-weight: 500;
 }
 
-#login {
+#login_btn {
     border: solid;
     border-width: medium;
     border-radius: 10px 10px;
-    border-color: #d03741;
+    border-color: var(--color-three);
+    font-weight: 500;
 }
+
+/*Sign Up Page CSS*/
+#signup_container {
+    background-color: var(--color-five);
+    padding: 5% 5% 10% 5%;
+    width: auto;
+    min-height:100px;
+    overflow: hidden;
+    margin: 10% auto auto auto;
+}
+
+.signup_form {
+    width: 100%;
+}
+
+#signup_submit {
+    background-color: var(--color-three);
+    border-color: var(--color-three);
+}
+
+#signup_logo{
+    width: 50%;
+    height:auto;
+}
+
+#signup_title {
+    color: var(--color-six);
+    margin: 5% auto 5% auto;
+    text-align: center;
+}
+
+#signup_form_content {
+    display: inline-block;
+    width: 50%;
+    height: auto;
+}
+
+#signup_more_content {
+    width: 40%;
+    display: inline-block;
+    float: right;
+}
+
+#signup_more_content dt {
+    color: var(--color-six);
+}
+
+#already_have_an_account {
+    color: var(--color-six);
+}
+
+
+
