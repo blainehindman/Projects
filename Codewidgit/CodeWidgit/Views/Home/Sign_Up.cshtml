@@ -1,22 +1,24 @@
-﻿<div class="container-sm" id="signup_container">
+﻿@model CodeWidgit.Models.User
+
+<div class="container-sm" id="signup_container">
     <img id="signup_logo" src="~/lib/Images/Images/Logo_1_Rectangle.png" />
     <h1 id="signup_title">Sign Up!</h1>
     <div id="signup_form_content">
-        <form class="form-group">
+        <form class="form-group" id="UserForm">
             <div class="form-group">
-                <input class="form-control signup_form" id="signup_first_name" type="text" placeholder="First Name" />
+                <input asp-for=FirstName class="form-control signup_form" id="signup_first_name" type="text" placeholder="First Name" />
             </div>
             <br />
             <div class="form-group">
-                <input class="form-control signup_form" id="signup_last_name" type="text" placeholder="Last Name" />
+                <input asp-for=LastName class="form-control signup_form" id="signup_last_name" type="text" placeholder="Last Name" />
             </div>
             <br />
             <div class="form-group">
-                <input class="form-control signup_form" id="signup_username" type="text" placeholder="Username, e.g. 'BestCoder2022'" />
+                <input asp-for=Username class="form-control signup_form" id="signup_username" type="text" placeholder="Username, e.g. 'BestCoder2022'" />
             </div>
             <br />
             <div class="form-group">
-                <input class="form-control signup_form" id="signup_password" type="password" placeholder="Password" />
+                <input asp-for=Password class="form-control signup_form" id="signup_password" type="password" placeholder="Password" />
             </div>
             <br />
             <div class="form-group">
@@ -24,11 +26,11 @@
             </div>
             <br />
             <div class="form-group">
-                <input class="form-control signup_form" id="signup_birthday" type="date" placeholder="Password" />
+                <input asp-for=Birthday class="form-control signup_form" id="signup_birthday" type="date" placeholder="Password" />
             </div>
             <br />
             <div class="form-group">
-                <input type="submit" value="Submit" class="btn btn-primary" id="signup_submit" />
+                <input type="button" value="Submit" class="btn btn-primary" id="signup_submit"/>
             </div>
             <br />
             <div class="form-group">
@@ -51,6 +53,4 @@
         </dl>
         <p id="already_have_an_account">Already have an Account? Login <a href="#">here</a>!</p>
     </div>
-    
 </div>
-

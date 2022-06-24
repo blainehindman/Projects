@@ -6,11 +6,12 @@ namespace CodeWidgit.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly CodeWidgitCoreDBContext _context;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(CodeWidgitCoreDBContext context)
         {
-            _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index()
@@ -26,6 +27,26 @@ namespace CodeWidgit.Controllers
         public IActionResult Sign_Up()
         {
             return View();
+        }
+
+        [HttpPost]
+        public async Task <IActionResult> Sign_Up_User(User user)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Enter required fields");
+            }
+            else
+            {
+                Guid User_ID = Guid.NewGuid();
+                string DateJoined = DateTime.Now.ToString("M-d-yyyy");
+                user.UserId = User_ID;
+                user.DateJoined = DateJoined;
+
+                _context.Add(user);
+                await _context.SaveChangesAsync();
+                return null;
+            }
         }
 
         public IActionResult Log_In()
