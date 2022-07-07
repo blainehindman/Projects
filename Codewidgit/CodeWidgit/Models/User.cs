@@ -19,8 +19,10 @@ namespace CodeWidgit.Models
         [StringLength(30)]
         public string LastName { get; set; } = null!;
         [StringLength(30)]
-        public string Username { get; set; } = null!;
+        public string Email { get; set; } = null!;
         [StringLength(30)]
+        public string Username { get; set; } = null!;
+        [StringLength(300)]
         public string Password { get; set; } = null!;
         [StringLength(30)]
         public string Birthday { get; set; } = null!;

@@ -83,6 +83,8 @@ namespace CodeWidgit.Models
 
                 entity.Property(e => e.DateJoined).IsFixedLength();
 
+                entity.Property(e => e.Email).IsFixedLength();
+
                 entity.Property(e => e.FirstName).IsFixedLength();
 
                 entity.Property(e => e.LastName).IsFixedLength();

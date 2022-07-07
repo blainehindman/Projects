@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "ZgpjTEaX7Nk1d0utlXxYsqB5402sYB+B10appeKxhaw=",
+  "Hash": "ONfjFlebgk7xTR1ZEv1jGF/b97uk0ifLNaiUgl1TMJo=",
   "Source": "CodeWidgit",
   "BasePath": "_content/CodeWidgit",
   "Mode": "Default",
@@ -83,6 +83,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\blain\\OneDrive\\Desktop\\BasiliskByte\\Projects\\Projects\\CodeWidgit\\CodeWidgit\\wwwroot\\js\\Sign_Up.js",
+      "SourceId": "CodeWidgit",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\blain\\OneDrive\\Desktop\\BasiliskByte\\Projects\\Projects\\CodeWidgit\\CodeWidgit\\wwwroot\\",
+      "BasePath": "_content/CodeWidgit",
+      "RelativePath": "js/Sign_Up.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\Sign_Up.js"
     },
     {
       "Identity": "C:\\Users\\blain\\OneDrive\\Desktop\\BasiliskByte\\Projects\\Projects\\CodeWidgit\\CodeWidgit\\wwwroot\\js\\site.js",
