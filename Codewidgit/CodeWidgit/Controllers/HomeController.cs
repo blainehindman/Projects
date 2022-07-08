@@ -29,8 +29,29 @@ namespace CodeWidgit.Controllers
             return View();
         }
 
+        public IActionResult Log_In()
+        {
+            return View();
+        }
+
         [HttpPost]
-        public JsonResult Sign_Up_User(string first_name,string last_name, string email, string username, string password, string birthday, string repassword)
+        public JsonResult Log_In_User(string email, string password)
+        {
+            var user = _context.Users.FirstOrDefault(u => u.Email == email);
+            if (user != null)
+            {
+                string hashed_pwd = Security.SecurityHelper.HashPassword(password, "", 10101, 70);
+
+                if(hashed_pwd == user.Password)
+                {
+                    return Json("Log In Pass");
+                }
+            }
+            return Json("");
+        }
+
+        [HttpPost]
+        public JsonResult Sign_Up_User(string first_name, string last_name, string email, string username, string password, string birthday, string repassword)
         {
             User user = new User();
             user.FirstName = first_name;
@@ -85,11 +106,6 @@ namespace CodeWidgit.Controllers
             {
                 return Json("Email Already Exists");
             }
-        }
-
-        public IActionResult Log_In()
-        {
-            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

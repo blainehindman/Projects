@@ -1,0 +1,25 @@
+﻿@model CodeWidgit.Models.User
+
+<div class="container-sm" id="login_container">
+    <img id="login_logo" src="~/lib/Images/Images/Logo_1_Rectangle.png" />
+    <h1 id="login_title">Log In!</h1>
+    <div id="login_form_content">
+        <form class="form-group">
+            <div class="form-group">
+                <input asp-for=Email class="form-control login_form" id="login_email" type="text" placeholder="Email" />
+            </div>
+            <br />
+            <div class="form-group">
+                <input asp-for=Password class="form-control login_form" id="login_password" type="password" placeholder="Password" />
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="button" value="Submit" class="btn btn-primary" id="login_submit"/>
+            </div>
+        </form>
+    </div>
+    <br />
+    <br />
+    <p id="need_an_account">Need an account? Sign up <a asp-controller="Home" asp-action="Sign_Up">here</a>!</p>
+</div>
+

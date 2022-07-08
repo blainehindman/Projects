@@ -101,5 +101,45 @@ body {
     color: var(--color-six);
 }
 
+/*Log In Page CSS*/
+#login_container {
+    background-color: var(--color-five);
+    padding: 5% 5% 10% 5%;
+    width: auto;
+    min-height: 100px;
+    overflow: hidden;
+    margin: 10% auto auto auto;
+}
+
+.login_form {
+    width: 100%;
+}
+
+#login_submit {
+    background-color: var(--color-three);
+    border-color: var(--color-three);
+}
+
+#login_logo {
+    width: 50%;
+    height: auto;
+}
+
+#login_title {
+    color: var(--color-six);
+    margin: 5% auto 5% auto;
+    text-align: center;
+}
+
+#login_form_content {
+    display: inline-block;
+    width: 100%;
+    height: auto;
+}
+
+#need_an_account {
+    color: var(--color-six);
+}
+
 
 
