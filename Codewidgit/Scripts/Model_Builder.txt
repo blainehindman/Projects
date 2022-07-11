@@ -3,3 +3,4 @@
 
 //Nugut command
 Scaffold-DbContext -Connection name=CodeWidgitContext -Provider Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -DataAnnotations -Force
+

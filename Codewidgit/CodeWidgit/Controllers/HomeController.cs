@@ -40,14 +40,21 @@ namespace CodeWidgit.Controllers
             var user = _context.Users.FirstOrDefault(u => u.Email == email);
             if (user != null)
             {
-                string hashed_pwd = Security.SecurityHelper.HashPassword(password, "", 10101, 70);
-
-                if(hashed_pwd == user.Password)
+                if(Security.SecurityHelper.VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
                 {
                     return Json("Log In Pass");
                 }
+                else
+                {
+                    return Json("Wrong Password");
+                }
+                
             }
-            return Json("");
+            else
+            {
+                return Json("User Not found");
+            }
+            
         }
 
         [HttpPost]
@@ -58,7 +65,6 @@ namespace CodeWidgit.Controllers
             user.LastName = last_name;
             user.Email = email;
             user.Username = username;
-            user.Password = password;
             user.Birthday = birthday;
 
             var Check_Email = _context.Users.FirstOrDefault(u => u.Email == user.Email);
@@ -76,11 +82,12 @@ namespace CodeWidgit.Controllers
                         user.UserId = User_ID;
                         user.DateJoined = DateJoined;
 
-                        string salt = Security.SecurityHelper.GenerateSalt(70);
-                        string hashed_pwd = Security.SecurityHelper.HashPassword(password, salt, 10101, 70);
-                        user.Password = hashed_pwd;
+                        Security.SecurityHelper.CreatePasswordHash(password, out byte[] passwordHash, out byte[] passwordSalt);
+                        user.PasswordHash = passwordHash;
+                        user.PasswordSalt = passwordSalt;
 
-                        if(ModelState.IsValid)
+
+                        if (ModelState.IsValid)
                         {
                             _context.Add(user);
                             _context.SaveChangesAsync();

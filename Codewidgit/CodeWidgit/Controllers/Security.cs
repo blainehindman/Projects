@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Security.Cryptography;
+using CodeWidgit.Models;
 
 namespace CodeWidgit.Controllers
 {
@@ -7,25 +8,21 @@ namespace CodeWidgit.Controllers
     {
         public class SecurityHelper
         {
-            public static string GenerateSalt(int nSalt)
+            public static void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
             {
-                var saltBytes = new byte[nSalt];
-
-                using (var provider = new RNGCryptoServiceProvider())
+                using (var hmac = new HMACSHA512())
                 {
-                    provider.GetNonZeroBytes(saltBytes);
+                    passwordSalt = hmac.Key;
+                    passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
                 }
-
-                return Convert.ToBase64String(saltBytes);
             }
 
-            public static string HashPassword(string password, string salt, int nIterations, int nHash)
+            public static bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
             {
-                var saltBytes = Convert.FromBase64String(salt);
-
-                using (var rfc2898DeriveBytes = new Rfc2898DeriveBytes(password, saltBytes, nIterations))
+                using (var hmac = new HMACSHA512(passwordSalt))
                 {
-                    return Convert.ToBase64String(rfc2898DeriveBytes.GetBytes(nHash));
+                    var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+                    return computedHash.SequenceEqual(passwordHash);
                 }
             }
         }

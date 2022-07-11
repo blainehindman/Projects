@@ -89,8 +89,6 @@ namespace CodeWidgit.Models
 
                 entity.Property(e => e.LastName).IsFixedLength();
 
-                entity.Property(e => e.Password).IsFixedLength();
-
                 entity.Property(e => e.Username).IsFixedLength();
             });
 

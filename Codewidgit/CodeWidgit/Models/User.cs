@@ -22,8 +22,10 @@ namespace CodeWidgit.Models
         public string Email { get; set; } = null!;
         [StringLength(30)]
         public string Username { get; set; } = null!;
-        [StringLength(300)]
-        public string Password { get; set; } = null!;
+        [MaxLength(300)]
+        public byte[] PasswordSalt { get; set; } = null!;
+        [MaxLength(300)]
+        public byte[] PasswordHash { get; set; } = null!;
         [StringLength(30)]
         public string Birthday { get; set; } = null!;
         [Column("Date_Joined")]
