@@ -1,17 +1,22 @@
 ﻿using CodeWidgit.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Security.Claims;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace CodeWidgit.Controllers
 {
     public class HomeController : Controller
     {
         private readonly CodeWidgitCoreDBContext _context;
-        private readonly ILogger<HomeController> _logger;
+        private readonly IConfiguration _configuration;
+        //private readonly ILogger<HomeController> _logger;
 
-        public HomeController(CodeWidgitCoreDBContext context)
+        public HomeController(CodeWidgitCoreDBContext context, IConfiguration configuration)
         {
             _context = context;
+            _configuration = configuration;
         }
 
         public IActionResult Index()
@@ -33,6 +38,26 @@ namespace CodeWidgit.Controllers
         {
             return View();
         }
+        public string CreateToken(User user)
+        {
+            List<Claim> claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString())
+            };
+
+            var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_configuration.GetSection("AppSettings:Token").Value));
+
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+
+            var token = new JwtSecurityToken(
+                claims: claims,
+                expires: DateTime.Now.AddDays(1),
+                signingCredentials: creds);
+
+            var jwt = new JwtSecurityTokenHandler().WriteToken(token);
+
+            return jwt;
+        }
 
         [HttpPost]
         public JsonResult Log_In_User(string email, string password)
@@ -40,9 +65,10 @@ namespace CodeWidgit.Controllers
             var user = _context.Users.FirstOrDefault(u => u.Email == email);
             if (user != null)
             {
-                if(Security.SecurityHelper.VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
+                if(Security.VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
                 {
-                    return Json("Log In Pass");
+                    string token = CreateToken(user);
+                    return Json("Log In Pass, Token:" + token);
                 }
                 else
                 {
@@ -82,7 +108,7 @@ namespace CodeWidgit.Controllers
                         user.UserId = User_ID;
                         user.DateJoined = DateJoined;
 
-                        Security.SecurityHelper.CreatePasswordHash(password, out byte[] passwordHash, out byte[] passwordSalt);
+                        Security.CreatePasswordHash(password, out byte[] passwordHash, out byte[] passwordSalt);
                         user.PasswordHash = passwordHash;
                         user.PasswordSalt = passwordSalt;
 
