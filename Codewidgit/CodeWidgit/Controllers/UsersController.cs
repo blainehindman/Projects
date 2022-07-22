@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CodeWidgit.Models;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CodeWidgit.Controllers
 {
@@ -25,6 +27,21 @@ namespace CodeWidgit.Controllers
                           View(await _context.Users.ToListAsync()) :
                           Problem("Entity set 'CodeWidgitCoreDBContext.Users'  is null.");
         }
+
+        [HttpGet, Authorize]
+        public async Task<IActionResult> AccountDashboard(Guid? UserID)
+        {
+
+            if (UserID == null || _context.Users == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return View();
+            }
+        }
+
 
         // GET: Users/Details/5
         public async Task<IActionResult> Details(Guid? id)

@@ -1,0 +1,44 @@
+﻿@*@model CodeWidgitCore.Models.Widgit*@
+@model CodeWidgitCore.Models.WidgitViewModel
+<h1>Create</h1>
+
+<h4>Widgit</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Widgit.WidgitName" class="control-label"></label>
+                <input asp-for="Widgit.WidgitName" class="form-control" />
+                <span asp-validation-for="Widgit.WidgitName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Widgit.WidgitDescription" class="control-label"></label>
+                <input asp-for="Widgit.WidgitDescription" class="form-control" />
+                <span asp-validation-for="Widgit.WidgitDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Widgit.WidgitPrice" class="control-label"></label>
+                <input asp-for="Widgit.WidgitPrice" class="form-control" type="number" step="0.01"/>
+                <span asp-validation-for="Widgit.WidgitPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WidgitContent.WidgitFile" class="control-label"></label>
+                <textarea asp-for="WidgitContent.WidgitFile" class="form-control"></textarea>
+                <span asp-validation-for="WidgitContent" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

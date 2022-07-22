@@ -1,0 +1,29 @@
+﻿@model dynamic
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome to CodeWidgit</h1>
+    <p>Checkout some of the Wigits Below:</p>
+    <hr />
+</div>
+
+<div class="container">
+    <div class="row">
+        @foreach(var widgit in Model.Widgits)
+        {
+            @foreach(var widgitContent in Model.WidgitContent)
+            {
+                <div class="col">
+                    <iframe srcdoc="@widgitContent.WidgitFile"></iframe>
+                    <p><b>@widgit.WidgitName</b></p>
+                    <p>@widgit.WidgitDescription</p>
+                </div>
+            }
+        }
+    </div>
+</div>
+
+

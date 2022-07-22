@@ -1,0 +1,95 @@
+﻿@model IEnumerable<CodeWidgitCore.Models.Widgit>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.WidgitName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WidgitDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatorId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatorUsername)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PublishedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UpdatedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WidgitPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WidgitDownloads)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WidgitRating)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WidgitLikesCount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WidgitCommentsCount)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.WidgitName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WidgitDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatorId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatorUsername)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PublishedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UpdatedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WidgitPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WidgitDownloads)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WidgitRating)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WidgitLikesCount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WidgitCommentsCount)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.WidgitId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.WidgitId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.WidgitId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
