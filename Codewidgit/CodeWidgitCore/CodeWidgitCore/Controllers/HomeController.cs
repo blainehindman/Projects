@@ -21,10 +21,32 @@ namespace CodeWidgitCore.Controllers
 
         public async Task<IActionResult> Index()
         {
-            dynamic Widgit_Feed = new ExpandoObject();
-            Widgit_Feed.Widgits = _context.Widgits.ToList();
-            Widgit_Feed.WidgitContent = _context.WidgitContents.ToList();
-            return View(Widgit_Feed);
+            var widgits = _context.Widgits.ToList();
+            var widgitContent = _context.WidgitContents.ToList();
+
+            var widgitFeedViewModel = (from w in widgits join wc in widgitContent on w.WidgitId equals wc.WidgitFileId
+                                       select new WidgitFeedViewModel()
+                                       {
+                                           WidgitId = w.WidgitId,
+                                           WidgitName = w.WidgitName,
+                                           WidgitDescription = w.WidgitDescription,
+                                           CreatorId = w.CreatorId,
+                                           CreatorUsername = w.CreatorUsername,
+                                           PublishedDate = w.PublishedDate,
+                                           UpdatedDate = w.UpdatedDate,
+                                           WidgitDownloads = w.WidgitDownloads,
+                                           WidgitRating = w.WidgitRating,
+                                           WidgitRatingsCount = w.WidgitRatingsCount,
+                                           WidgitRatingTotal = w.WidgitRatingTotal,
+                                           WidgitCommentsCount = w.WidgitCommentsCount,
+                                           WidgitViews = w.WidgitViews,
+                                           WidgitLikesCount = w.WidgitLikesCount,
+                                           WidgitFileId = wc.WidgitFileId,
+                                           WidgitFile = wc.WidgitFile
+
+                                       }).ToList();
+
+            return View(widgitFeedViewModel);
         }
 
         public IActionResult Privacy()

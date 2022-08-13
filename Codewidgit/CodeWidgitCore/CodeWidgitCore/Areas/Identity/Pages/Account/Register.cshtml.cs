@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using System.Web;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
@@ -18,6 +19,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using CodeWidgitCore.Models;
 
 namespace CodeWidgitCore.Areas.Identity.Pages.Account
 {
@@ -29,13 +31,15 @@ namespace CodeWidgitCore.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<IdentityUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly CodeWidgitCoreDBContext _context;
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
             IUserStore<IdentityUser> userStore,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            CodeWidgitCoreDBContext context)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -43,6 +47,7 @@ namespace CodeWidgitCore.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _context = context;
         }
 
         /// <summary>
@@ -70,6 +75,10 @@ namespace CodeWidgitCore.Areas.Identity.Pages.Account
         /// </summary>
         public class InputModel
         {
+            [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "User Name")]
+            public string UserName { get; set; }
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
@@ -112,19 +121,40 @@ namespace CodeWidgitCore.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = CreateUser();
+                //string Username = "";
+                var user = new IdentityUser { UserName = Input.UserName, Email = Input.Email };
 
+                var check_username = await _userManager.FindByNameAsync(Input.UserName);
                 var check_email = await _userManager.FindByEmailAsync(Input.Email);
-                
+                if (check_username != null)
+                {
+                    ViewData["Message"] = String.Format("This username is already taken!");
+                    return null;
+                }
                 if (check_email != null)
                 {
-                    return LocalRedirect(returnUrl);
+                    ViewData["Message"] = String.Format("This email is already in use!");
+                    return null;
                 }
 
-                await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
-                await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
-                var result = await _userManager.CreateAsync(user, Input.Password);
 
+
+                //Set Username to anything before the @ sign in the email
+                //int index_of_at = Input.Email.IndexOf("@");
+                //if (index_of_at >=0)
+                //{
+                //    Username = Input.Email.Substring(0, index_of_at);
+                //}
+
+                await _userStore.SetUserNameAsync(user, Input.UserName, CancellationToken.None);
+                await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+                UserCreationDate userCreationDate = new UserCreationDate();
+                DateTime thisDay = DateTime.Today;
+                userCreationDate.CreationDate = thisDay.ToString("d");
+                userCreationDate.UserId = user.Id;
+                var result = await _userManager.CreateAsync(user, Input.Password);
+                _context.Add(userCreationDate);
+                await _context.SaveChangesAsync();
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");

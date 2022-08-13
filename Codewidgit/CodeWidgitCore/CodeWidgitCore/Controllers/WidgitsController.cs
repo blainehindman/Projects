@@ -12,6 +12,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using System.Dynamic;
+using System;
+using System.Drawing;
+using System.Linq;
 
 namespace CodeWidgitCore.Controllers
 {
@@ -33,9 +36,9 @@ namespace CodeWidgitCore.Controllers
         // GET: Widgits
         public async Task<IActionResult> Index()
         {
-              return _context.Widgits != null ? 
-                          View(await _context.Widgits.ToListAsync()) :
-                          Problem("Entity set 'CodeWidgitCoreDBContext.Widgits'  is null.");
+            return _context.Widgits != null ?
+                        View(await _context.Widgits.ToListAsync()) :
+                        Problem("Entity set 'CodeWidgitCoreDBContext.Widgits'  is null.");
         }
 
         // GET: Widgits/Details/5
@@ -74,7 +77,7 @@ namespace CodeWidgitCore.Controllers
         {
 
             var user = await _userManager.GetUserAsync(User);
-            if (widgit.WidgitName == null || widgit.WidgitDescription == null || widgit.WidgitPrice == 0)
+            if (widgit.WidgitName == null || widgit.WidgitDescription == null)
             {
                 return RedirectToAction(nameof(Create));
             }
@@ -88,22 +91,246 @@ namespace CodeWidgitCore.Controllers
                 widgit.CreatorUsername = user.UserName;
                 widgit.PublishedDate = DateTime.UtcNow.ToString();
                 widgit.UpdatedDate = DateTime.UtcNow.ToString();
-                widgit.WidgitPrice = widgit.WidgitPrice;
                 widgit.WidgitDownloads = 0;
                 widgit.WidgitRating = null;
+                widgit.WidgitRatingTotal = 0;
                 widgit.WidgitRatingsCount = 0;
                 widgit.WidgitLikesCount = 0;
+                widgit.WidgitViews = 0;
                 widgit.WidgitCommentsCount = 0;
                 //WidgitContent Data
-                widgitContent.WidgitFileId = Guid.NewGuid();
+                widgitContent.WidgitFileId = widgit.WidgitId;
                 widgitContent.WidgitFile = widgitContent.WidgitFile;
 
                 _context.Add(widgit);
                 _context.Add(widgitContent);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Create));
+                return RedirectToAction(nameof(Widgit_Page_Redirect), widgit);
             }
         }
+
+        public async Task<IActionResult> Widgit_Page_Redirect(Guid? WidgitId)
+        {
+            Widgit widgit = await _context.Widgits.FindAsync(WidgitId);
+            string client_username = User.Identity.Name;
+
+            if (widgit == null)
+            {
+                return NotFound();
+            }    
+
+            if (client_username == null)
+            {
+                return Redirect("/Identity/Account/Register");
+            }
+            if (client_username != widgit.CreatorUsername)
+            {
+                widgit.WidgitViews = widgit.WidgitViews + 1;
+                _context.Update(widgit);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Widgit_Page_Guest), widgit);
+            }
+            if (client_username == widgit.CreatorUsername)
+            {
+                return RedirectToAction(nameof(Widgit_Page_Owner), widgit);
+            }
+
+            return NotFound();
+        }
+
+        public async Task<IActionResult> Widgit_Page_Guest(Widgit widgit)
+        {
+            var widgits = _context.Widgits.Where(u => u.WidgitId == widgit.WidgitId).ToList();
+            var widgitContent = _context.WidgitContents.Where(u => u.WidgitFileId == widgit.WidgitId).ToList();
+
+            var widgitFeedViewModel = (from w in widgits
+                                       join wc in widgitContent on w.WidgitId equals wc.WidgitFileId
+                                       select new WidgitFeedViewModel()
+                                       {
+                                           //Wigit Data
+                                           WidgitId = w.WidgitId,
+                                           WidgitName = w.WidgitName,
+                                           WidgitDescription = w.WidgitDescription,
+                                           CreatorId = w.CreatorId,
+                                           CreatorUsername = w.CreatorUsername,
+                                           PublishedDate = w.PublishedDate,
+                                           UpdatedDate = w.UpdatedDate,
+                                           WidgitDownloads = w.WidgitDownloads,
+                                           WidgitRating = w.WidgitRating,
+                                           WidgitRatingsCount = w.WidgitRatingsCount,
+                                           WidgitRatingTotal = w.WidgitRatingTotal,
+                                           WidgitCommentsCount = w.WidgitCommentsCount,
+                                           WidgitViews = w.WidgitViews,
+                                           WidgitLikesCount = w.WidgitLikesCount,
+                                           //Widgit Content Data
+                                           WidgitFileId = wc.WidgitFileId,
+                                           WidgitFile = wc.WidgitFile
+
+                                       }).ToList();
+
+            var Check_Like = _context.Likes.Where(u => u.WidgitId == widgit.WidgitId).Where(u => u.AuthorUsername == User.Identity.Name).ToList();
+            var Check_Rating = _context.Ratings.Where(u => u.WidgitId == widgit.WidgitId).Where(u => u.AuthorUsername == User.Identity.Name).ToList();
+
+            WidgitLayoutModel widgitLayoutModel = new WidgitLayoutModel();
+
+            if(Check_Like.Count() != 0)
+            {
+                widgitLayoutModel.Liked = true;
+            }
+            else if (Check_Like.Count() == 0)
+            {
+                widgitLayoutModel.Liked = false;
+            }
+
+
+            if (Check_Rating.Count() != 0)
+            {
+                widgitLayoutModel.Rated = true;
+            }
+            else if (Check_Rating.Count() == 0)
+            {
+                widgitLayoutModel.Rated = false;
+            }
+
+            ViewData["Layout"] = widgitLayoutModel;
+
+           
+
+            return View(widgitFeedViewModel);
+        }
+
+        public async Task<IActionResult> Widgit_Page_Owner(Widgit widgit)
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> LikeUpdate(Guid WidgitId)
+        {
+            Widgit widgit = await _context.Widgits.FindAsync(WidgitId);
+            var user = await _userManager.GetUserAsync(User);
+
+            var Check_Like = _context.Likes.Where(u => u.WidgitId == widgit.WidgitId).Where(u => u.AuthorUsername == User.Identity.Name).ToList();
+            if (Check_Like.Count() != 0)
+            {
+                if ((widgit == null) || (user == null))
+                {
+                    return Json(null);
+                }
+
+                Like like = Check_Like[0];
+                widgit.WidgitLikesCount = widgit.WidgitLikesCount - 1;
+                _context.Remove(like);
+                _context.Update(widgit);
+
+                await _context.SaveChangesAsync();
+                return Json(0);
+            }
+            else
+            {
+                if ((widgit == null) || (user == null))
+                {
+                    return Json(null);
+                }
+                DateTime thisDay = DateTime.Today;
+
+                Like like = new Like();
+                like.LikeId = Guid.NewGuid();
+                like.WidgitId = widgit.WidgitId;
+                like.AuthorId = user.Id;
+                like.AuthorUsername = user.UserName;
+                like.LikeDate = thisDay.ToString("d");
+
+                widgit.WidgitLikesCount = widgit.WidgitLikesCount + 1;
+                _context.Update(widgit);
+
+                _context.Add(like);
+                await _context.SaveChangesAsync();
+                return Json(1);
+            }
+
+        }
+
+        public async Task<JsonResult> RatingUpdate(Guid WidgitId, int Score)
+        {
+            Widgit widgit = await _context.Widgits.FindAsync(WidgitId);
+            var user = await _userManager.GetUserAsync(User);
+            var Check_Rating = _context.Ratings.Where(u => u.WidgitId == widgit.WidgitId).Where(u => u.AuthorUsername == User.Identity.Name).ToList();
+
+            if(Check_Rating.Count() != 0)
+            {
+                //update rating, not avaible at the moment
+            }
+            else
+            {
+                if ((widgit == null) || (user == null))
+                {
+                    return Json(null);
+                }
+                DateTime thisDay = DateTime.Today;
+                Rating rating = new Rating();
+                rating.RatingId = new Guid();
+                rating.WidgitId = widgit.WidgitId;
+                rating.AuthorId = user.Id;
+                rating.AuthorUsername = user.UserName;
+                rating.Score = Score;
+                rating.RatingDate = thisDay.ToString("d");
+
+                widgit.WidgitRatingsCount = widgit.WidgitRatingsCount + 1;
+                widgit.WidgitRatingTotal = widgit.WidgitRatingTotal + Score;
+                widgit.WidgitRating = CalculateRating(widgit.WidgitRatingTotal, widgit.WidgitRatingsCount);
+                _context.Update(widgit);
+
+                _context.Add(rating);
+                await _context.SaveChangesAsync();
+                return Json(1);
+            }
+            return Json(null);
+
+        }
+
+        public double CalculateRating(int TotalScore, int RatingsCount)
+        {
+            var Score = ((double)TotalScore)/((double)RatingsCount);
+            return Score;
+        }
+
+        public async Task<IActionResult> LikeWidgit(Guid? WidgitId)
+        {
+            Widgit widgit = await _context.Widgits.FindAsync(WidgitId);
+            var user = await _userManager.GetUserAsync(User);
+
+            if ((widgit == null) || (user == null))
+            {
+                return NotFound();
+            }
+            DateTime thisDay = DateTime.Today;
+
+            Like like = new Like();
+            like.LikeId = Guid.NewGuid();
+            like.WidgitId = widgit.WidgitId;
+            like.AuthorId = user.Id;
+            like.AuthorUsername = user.UserName;
+            like.LikeDate = thisDay.ToString("d");
+
+            var Check_Like = _context.Likes.Where(u => u.WidgitId == widgit.WidgitId).Where(u => u.AuthorUsername == User.Identity.Name).ToList();
+            if (Check_Like.Count() != 0)
+            {
+                widgit.WidgitLikesCount = widgit.WidgitLikesCount;
+                _context.Update(widgit);
+            }
+            else
+            {
+                widgit.WidgitLikesCount = widgit.WidgitLikesCount + 1;
+                _context.Update(widgit);
+            }
+
+            _context.Add(like);
+            await _context.SaveChangesAsync();
+
+            return View();
+        }
+
 
         // GET: Widgits/Edit/5
         public async Task<IActionResult> Edit(Guid? id)

@@ -17,9 +17,10 @@ namespace CodeWidgitCore.Models
         }
 
         public virtual DbSet<Comment> Comments { get; set; } = null!;
+        public virtual DbSet<DownloadRecord> DownloadRecords { get; set; } = null!;
         public virtual DbSet<Like> Likes { get; set; } = null!;
-        public virtual DbSet<PurchaseRecord> PurchaseRecords { get; set; } = null!;
         public virtual DbSet<Rating> Ratings { get; set; } = null!;
+        public virtual DbSet<UserCreationDate> UserCreationDates { get; set; } = null!;
         public virtual DbSet<Widgit> Widgits { get; set; } = null!;
         public virtual DbSet<WidgitContent> WidgitContents { get; set; } = null!;
 
@@ -42,35 +43,34 @@ namespace CodeWidgitCore.Models
                 entity.Property(e => e.CommentDate).IsFixedLength();
             });
 
-            modelBuilder.Entity<Like>(entity =>
+            modelBuilder.Entity<DownloadRecord>(entity =>
             {
-                entity.Property(e => e.LikeId).ValueGeneratedNever();
+                entity.HasKey(e => e.DownloadId)
+                    .HasName("PK_Purchase_Record");
 
-                entity.Property(e => e.AuthorUsername).IsFixedLength();
+                entity.Property(e => e.DownloadId).ValueGeneratedNever();
 
-                entity.Property(e => e.LikeDate).IsFixedLength();
-            });
-
-            modelBuilder.Entity<PurchaseRecord>(entity =>
-            {
-                entity.Property(e => e.TransactionId).ValueGeneratedNever();
+                entity.Property(e => e.ClientUsername).IsFixedLength();
 
                 entity.Property(e => e.CreatorUsername).IsFixedLength();
 
-                entity.Property(e => e.PurchaseDate).IsFixedLength();
-
-                entity.Property(e => e.PurchaserUsername).IsFixedLength();
+                entity.Property(e => e.DownloadDate).IsFixedLength();
 
                 entity.Property(e => e.WidgitDescription).IsFixedLength();
 
                 entity.Property(e => e.WidgitName).IsFixedLength();
             });
 
+            modelBuilder.Entity<Like>(entity =>
+            {
+                entity.Property(e => e.LikeId).ValueGeneratedNever();
+
+                entity.Property(e => e.LikeDate).IsFixedLength();
+            });
+
             modelBuilder.Entity<Rating>(entity =>
             {
                 entity.Property(e => e.RatingId).ValueGeneratedNever();
-
-                entity.Property(e => e.AuthorUsername).IsFixedLength();
 
                 entity.Property(e => e.RatingDate).IsFixedLength();
             });

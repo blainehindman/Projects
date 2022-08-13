@@ -1,0 +1,29 @@
+﻿@model IEnumerable<WidgitFeedViewModel>
+
+
+<div class="container">
+
+    @foreach (var widgit in Model)
+    {
+        <h1><b>@widgit.WidgitName</b></h1>
+        <h4>@widgit.WidgitDescription</h4>
+        <iframe srcdoc="@widgit.WidgitFile" style="width:100%; height: 350px;"></iframe>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h5>Basic Analytics:</h5>
+                    <p><img src="~/Images/view.png" class="wigit-content-icons">@widgit.WidgitViews</p>
+                    <p><img src="~/Images/download.png" class="wigit-content-icons">@widgit.WidgitDownloads</p>
+                    <p><img src="~/Images/heart.png" class="wigit-content-icons">@widgit.WidgitLikesCount</p>
+                    <p><img src="~/Images/star.png" class="wigit-content-icons">@widgit.WidgitRating</p>
+                </div>
+                <div class="col">
+                    <p><b>Creator - @widgit.CreatorUsername</b></p>
+                    <p>Published -@widgit.PublishedDate</p>
+                    <p>Updated - @widgit.UpdatedDate</p>
+                </div>
+            </div>
+        </div>
+    }
+
+</div>

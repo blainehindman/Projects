@@ -16,3 +16,28 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+#Wigit-Page-Link {
+    text-decoration: none;
+    color: #212529;
+}
+
+.wigit-content-icons {
+    width: 18px;
+    height: auto;
+}
+
+#heart_icon:hover {
+    width: 23px;
+    height: auto;
+}
+
+#star_icon:hover {
+    width: 23px;
+    height: auto;
+}
+
+#eye_icon:hover {
+    width: 23px;
+    height: auto;
+}

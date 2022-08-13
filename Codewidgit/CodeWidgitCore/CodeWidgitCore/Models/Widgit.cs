@@ -30,14 +30,16 @@ namespace CodeWidgitCore.Models
         [Column("Updated_Date")]
         [StringLength(30)]
         public string UpdatedDate { get; set; } = null!;
-        [Column("Widgit_Price")]
-        public double WidgitPrice { get; set; }
         [Column("Widgit_Downloads")]
         public int WidgitDownloads { get; set; }
         [Column("Widgit_Rating")]
         public double? WidgitRating { get; set; }
+        [Column("Widgit_Rating_Total")]
+        public int WidgitRatingTotal { get; set; }
         [Column("Widgit_Ratings_Count")]
         public int WidgitRatingsCount { get; set; }
+        [Column("Widgit_Views")]
+        public int WidgitViews { get; set; }
         [Column("Widgit_Likes_Count")]
         public int WidgitLikesCount { get; set; }
         [Column("Widgit_Comments_Count")]

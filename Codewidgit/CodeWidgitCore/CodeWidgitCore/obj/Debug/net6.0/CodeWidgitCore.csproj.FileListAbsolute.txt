@@ -268,3 +268,4 @@ C:\Users\blain\OneDrive\Desktop\BasiliskByte\Projects\Projects\CodeWidgit\CodeWi
 C:\Users\blain\OneDrive\Desktop\BasiliskByte\Projects\Projects\CodeWidgit\CodeWidgitCore\CodeWidgitCore\obj\Debug\net6.0\CodeWidgitCore.pdb
 C:\Users\blain\OneDrive\Desktop\BasiliskByte\Projects\Projects\CodeWidgit\CodeWidgitCore\CodeWidgitCore\obj\Debug\net6.0\CodeWidgitCore.genruntimeconfig.cache
 C:\Users\blain\OneDrive\Desktop\BasiliskByte\Projects\Projects\CodeWidgit\CodeWidgitCore\CodeWidgitCore\obj\Debug\net6.0\ref\CodeWidgitCore.dll
+C:\Users\blain\OneDrive\Desktop\BasiliskByte\Projects\Projects\CodeWidgit\CodeWidgitCore\CodeWidgitCore\bin\Debug\net6.0\QRCoder.dll

@@ -1,8 +1,9 @@
-﻿@model dynamic
+﻿@model IEnumerable<WidgitFeedViewModel>
 
 @{
     ViewData["Title"] = "Home Page";
 }
+<script src="~/lib/jquery/dist/jquery.js"></script>
 
 <div class="text-center">
     <h1 class="display-4">Welcome to CodeWidgit</h1>
@@ -12,18 +13,27 @@
 
 <div class="container">
     <div class="row">
-        @foreach(var widgit in Model.Widgits)
+        @foreach (var widgit in Model)
         {
-            @foreach(var widgitContent in Model.WidgitContent)
-            {
-                <div class="col">
-                    <iframe srcdoc="@widgitContent.WidgitFile"></iframe>
+            <div class="col" style="display: flex;align-items: center; justify-content: center;">
+                <a id="Wigit-Page-Link" scrolling="no" style="overflow:hidden;" asp-controller="Widgits" asp-action="Widgit_Page_Redirect" asp-route-WidgitId="@widgit.WidgitId">
+                    <iframe srcdoc="@widgit.WidgitFile" style="width:100%; height: auto;"></iframe>
                     <p><b>@widgit.WidgitName</b></p>
                     <p>@widgit.WidgitDescription</p>
-                </div>
-            }
+                    <div class="row">
+                        <div class="col">
+                            <p><img src="~/Images/view.png" class="wigit-content-icons">  @widgit.WidgitViews</p>
+                            <p><img src="~/Images/heart.png" class="wigit-content-icons">   @widgit.WidgitLikesCount</p>
+                            <p><img src="~/Images/star.png" class="wigit-content-icons">   @widgit.WidgitRating</p>
+                        </div>
+                        <div class="col">
+                            <p><b>@widgit.CreatorUsername</b></p>
+                        </div>
+                    </div>
+                </a>
+
+            </div>
         }
     </div>
 </div>
-
 
