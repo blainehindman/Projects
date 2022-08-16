@@ -142,7 +142,7 @@ namespace CodeWidgitCore.Controllers
         {
             var widgits = _context.Widgits.Where(u => u.WidgitId == widgit.WidgitId).ToList();
             var widgitContent = _context.WidgitContents.Where(u => u.WidgitFileId == widgit.WidgitId).ToList();
-
+            var user = await _userManager.GetUserAsync(User);
             var widgitFeedViewModel = (from w in widgits
                                        join wc in widgitContent on w.WidgitId equals wc.WidgitFileId
                                        select new WidgitFeedViewModel()
@@ -170,6 +170,7 @@ namespace CodeWidgitCore.Controllers
 
             var Check_Like = _context.Likes.Where(u => u.WidgitId == widgit.WidgitId).Where(u => u.AuthorUsername == User.Identity.Name).ToList();
             var Check_Rating = _context.Ratings.Where(u => u.WidgitId == widgit.WidgitId).Where(u => u.AuthorUsername == User.Identity.Name).ToList();
+            var Check_Follow = _context.Followers.Where(u => (u.FollowedId == widgit.CreatorId) && (u.FollowerId == user.Id)).ToList();
 
             WidgitLayoutModel widgitLayoutModel = new WidgitLayoutModel();
 
@@ -191,6 +192,19 @@ namespace CodeWidgitCore.Controllers
             {
                 widgitLayoutModel.Rated = false;
             }
+
+            if (Check_Follow.Count() != 0)
+            {
+                widgitLayoutModel.Followed = true;
+            }
+            else if (Check_Rating.Count() == 0)
+            {
+                widgitLayoutModel.Followed = false;
+            }
+
+
+
+
 
             ViewData["Layout"] = widgitLayoutModel;
 
@@ -295,42 +309,64 @@ namespace CodeWidgitCore.Controllers
             return Score;
         }
 
-        public async Task<IActionResult> LikeWidgit(Guid? WidgitId)
+        public async Task<JsonResult> Follow(Guid WidgitId)
         {
             Widgit widgit = await _context.Widgits.FindAsync(WidgitId);
             var user = await _userManager.GetUserAsync(User);
-
-            if ((widgit == null) || (user == null))
+            var Check_Follow = _context.Followers.Where(u => (u.FollowedId == widgit.CreatorId) && (u.FollowerId == user.Id)).ToList();
+            if (Check_Follow.Count() != 0)
             {
-                return NotFound();
-            }
-            DateTime thisDay = DateTime.Today;
+                //user already follows
+                Follower follow = Check_Follow[0];
+                var Find_Followers_Count = _context.UserFollowersCounts.Where(u => u.UserId == widgit.CreatorId).ToList();
+                UserFollowersCount followersCount = Find_Followers_Count[0];
 
-            Like like = new Like();
-            like.LikeId = Guid.NewGuid();
-            like.WidgitId = widgit.WidgitId;
-            like.AuthorId = user.Id;
-            like.AuthorUsername = user.UserName;
-            like.LikeDate = thisDay.ToString("d");
+                followersCount.Followers = followersCount.Followers - 1;
 
-            var Check_Like = _context.Likes.Where(u => u.WidgitId == widgit.WidgitId).Where(u => u.AuthorUsername == User.Identity.Name).ToList();
-            if (Check_Like.Count() != 0)
-            {
-                widgit.WidgitLikesCount = widgit.WidgitLikesCount;
-                _context.Update(widgit);
+                _context.Remove(follow);
+                _context.Update(followersCount);
+                await _context.SaveChangesAsync();
+
+                return Json(1);
             }
             else
             {
-                widgit.WidgitLikesCount = widgit.WidgitLikesCount + 1;
-                _context.Update(widgit);
+                Follower follower = new Follower();
+                UserFollowersCount userFollowersCount = new UserFollowersCount();
+                var Find_Followers_Count = _context.UserFollowersCounts.Where(u => u.UserId == widgit.CreatorId).ToList();
+
+                follower.FollowId = Guid.NewGuid();
+                follower.FollowedId = widgit.CreatorId;
+                follower.FollowedUsername = widgit.CreatorUsername;
+                follower.FollowerId = user.Id;
+                follower.FollowerUsername = user.UserName;
+
+                _context.Add(follower);
+                await _context.SaveChangesAsync();
+
+                if (Find_Followers_Count.Count() == 0)
+                {
+                    //User has no Followers, create model
+                    userFollowersCount.UserId = widgit.CreatorId;
+                    userFollowersCount.Username = widgit.CreatorUsername;
+                    userFollowersCount.Followers = 1;
+
+                    _context.Add(userFollowersCount);
+                    await _context.SaveChangesAsync();
+                }
+                else
+                {
+                    //User has followers, update model
+                    UserFollowersCount userFollowers = Find_Followers_Count[0];
+                    userFollowers.Followers = userFollowers.Followers + 1;
+
+                    _context.Update(userFollowers);
+                    await _context.SaveChangesAsync();
+                    return Json(1);
+                }
+                return Json(1);
             }
-
-            _context.Add(like);
-            await _context.SaveChangesAsync();
-
-            return View();
         }
-
 
         // GET: Widgits/Edit/5
         public async Task<IActionResult> Edit(Guid? id)

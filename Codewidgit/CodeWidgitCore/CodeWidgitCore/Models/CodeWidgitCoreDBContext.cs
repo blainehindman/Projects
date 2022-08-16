@@ -18,9 +18,11 @@ namespace CodeWidgitCore.Models
 
         public virtual DbSet<Comment> Comments { get; set; } = null!;
         public virtual DbSet<DownloadRecord> DownloadRecords { get; set; } = null!;
+        public virtual DbSet<Follower> Followers { get; set; } = null!;
         public virtual DbSet<Like> Likes { get; set; } = null!;
         public virtual DbSet<Rating> Ratings { get; set; } = null!;
         public virtual DbSet<UserCreationDate> UserCreationDates { get; set; } = null!;
+        public virtual DbSet<UserFollowersCount> UserFollowersCounts { get; set; } = null!;
         public virtual DbSet<Widgit> Widgits { get; set; } = null!;
         public virtual DbSet<WidgitContent> WidgitContents { get; set; } = null!;
 
@@ -59,6 +61,11 @@ namespace CodeWidgitCore.Models
                 entity.Property(e => e.WidgitDescription).IsFixedLength();
 
                 entity.Property(e => e.WidgitName).IsFixedLength();
+            });
+
+            modelBuilder.Entity<Follower>(entity =>
+            {
+                entity.Property(e => e.FollowId).ValueGeneratedNever();
             });
 
             modelBuilder.Entity<Like>(entity =>

@@ -47,18 +47,29 @@
                         </p>
                     }
 
-                <p>Published -@widgitModel.PublishedDate</p>
+                    <p>Published -@widgitModel.PublishedDate</p>
                     <p>Updated - @widgitModel.UpdatedDate</p>
+                    <button type="button" class="btn btn-primary btn-lg btn-block" onclick="Get_Widgit()">Get Widgit</button>
                 </div>
                 <div class="col">
                     <h3>Creator</h3>
                     <p><b>Creator - @widgitModel.CreatorUsername</b></p>
-                </div>
+                    @if (layout.Followed == true)
+                    {
+                        <button type="button" id="unfollow" class="btn btn-primary btn-lg btn-block" onclick="Unfollow()">Unfollow</button>
+                        <button type="button" id="follow" class="btn btn-primary btn-lg btn-block" onclick="Follow()" style="display:none;">Follow</button>
+                    }
+                    @if (layout.Followed == false)
+                    {
+                        <button type="button" id="unfollow" class="btn btn-primary btn-lg btn-block" onclick="Unfollow()" style="display:none;">Unfollow</button>
+                        <button type="button" id="follow" class="btn btn-primary btn-lg btn-block" onclick="Follow()">Follow</button>
+                    }
+            </div>
             </div>
 
         </div>
             <textarea id="widgit_string" hidden>@widgitModel.WidgitFile</textarea>
-            <button type="button" class="btn btn-primary btn-lg btn-block" onclick="Get_Widgit()">Get Widgit</button>
+
             
 </div>
 
@@ -114,6 +125,56 @@
             }
         });
     }
+
+    function Follow() {
+        var WidgitId = $("#WidgitId").text(); 
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("Follow", "Widgits")',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            data: { WidgitId: WidgitId},
+            dataType: "json",
+            success: function(data) {
+                var return_rating = data;
+                swal({
+                    title: "Woo-Hoo",
+                    text: "You Follwed This Creator",
+                    icon: "success",
+                    button: "ok",
+                });
+                document.getElementById("follow").style.display = "none";
+                document.getElementById("unfollow").style.display = "initial";
+            },
+            error: function() {
+            }
+        });
+    }
+
+    function Unfollow() {
+        var WidgitId = $("#WidgitId").text(); 
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("Follow", "Widgits")',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            data: { WidgitId: WidgitId},
+            dataType: "json",
+            success: function(data) {
+                var return_rating = data;
+                swal({
+                    title: "See-Yah",
+                    text: "You Unfollwed This Creator",
+                    icon: "success",
+                    button: "ok",
+                });
+                document.getElementById("follow").style.display = "initial";
+                document.getElementById("unfollow").style.display = "none";
+            },
+            error: function() {
+
+            }
+        });
+    }
+
 
     function Get_Widgit() {
         /* Select text area by id*/
