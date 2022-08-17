@@ -368,6 +368,35 @@ namespace CodeWidgitCore.Controllers
             }
         }
 
+        public async Task<JsonResult> DownloadRecord (Guid WidgitId)
+        {
+            Widgit widgit = await _context.Widgits.FindAsync(WidgitId);
+            var user = await _userManager.GetUserAsync(User);
+            var FindDownloadRecord = _context.DownloadRecords.Where(u => (u.WidgitId == widgit.WidgitId) && (u.ClientId == user.Id)).ToList();
+
+            if(FindDownloadRecord.Count == 0)
+            {
+                DownloadRecord downloadRecord = new DownloadRecord();
+                DateTime thisDay = DateTime.Today;
+
+                downloadRecord.DownloadId = Guid.NewGuid();
+                downloadRecord.WidgitId = widgit.WidgitId;
+                downloadRecord.CreatorId = widgit.CreatorId;
+                downloadRecord.CreatorUsername = widgit.CreatorUsername;
+                downloadRecord.ClientId = user.Id;
+                downloadRecord.ClientUsername = user.UserName;
+                downloadRecord.DownloadDate = thisDay.ToString("d");
+                _context.Add(downloadRecord);
+                await _context.SaveChangesAsync();
+                return Json(1);
+            }
+            else
+            {
+                return Json(1);
+            }
+
+        }
+
         // GET: Widgits/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
         {

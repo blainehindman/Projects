@@ -14,26 +14,20 @@ namespace CodeWidgitCore.Models
         public Guid DownloadId { get; set; }
         [Column("Widgit_ID")]
         public Guid WidgitId { get; set; }
-        [Column("Widgit_Name")]
-        [StringLength(30)]
-        public string WidgitName { get; set; } = null!;
-        [Column("Widgit_Description")]
-        [StringLength(300)]
-        public string WidgitDescription { get; set; } = null!;
         [Column("Creator_ID")]
-        public Guid CreatorId { get; set; }
+        [StringLength(450)]
+        public string CreatorId { get; set; } = null!;
         [Column("Creator_Username")]
-        [StringLength(30)]
+        [StringLength(256)]
         public string CreatorUsername { get; set; } = null!;
         [Column("Client_ID")]
-        public Guid ClientId { get; set; }
+        [StringLength(450)]
+        public string ClientId { get; set; } = null!;
         [Column("Client_Username")]
-        [StringLength(30)]
+        [StringLength(256)]
         public string ClientUsername { get; set; } = null!;
-        [Column("Widgit_Price")]
-        public double WidgitPrice { get; set; }
         [Column("Download_Date")]
-        [StringLength(30)]
+        [StringLength(256)]
         public string DownloadDate { get; set; } = null!;
     }
 }

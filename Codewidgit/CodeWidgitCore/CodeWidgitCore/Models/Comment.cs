@@ -14,9 +14,10 @@ namespace CodeWidgitCore.Models
         [Column("Wigit_ID")]
         public Guid WigitId { get; set; }
         [Column("Author_ID")]
-        public Guid AuthorId { get; set; }
+        [StringLength(450)]
+        public string AuthorId { get; set; } = null!;
         [Column("Author_Username")]
-        [StringLength(30)]
+        [StringLength(256)]
         public string AuthorUsername { get; set; } = null!;
         [Column("Comment_Date")]
         [StringLength(30)]

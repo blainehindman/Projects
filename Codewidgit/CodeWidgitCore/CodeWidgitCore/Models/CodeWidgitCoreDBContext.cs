@@ -19,6 +19,7 @@ namespace CodeWidgitCore.Models
         public virtual DbSet<Comment> Comments { get; set; } = null!;
         public virtual DbSet<DownloadRecord> DownloadRecords { get; set; } = null!;
         public virtual DbSet<Follower> Followers { get; set; } = null!;
+        public virtual DbSet<Hashtag> Hashtags { get; set; } = null!;
         public virtual DbSet<Like> Likes { get; set; } = null!;
         public virtual DbSet<Rating> Ratings { get; set; } = null!;
         public virtual DbSet<UserCreationDate> UserCreationDates { get; set; } = null!;
@@ -40,8 +41,6 @@ namespace CodeWidgitCore.Models
             {
                 entity.Property(e => e.RatingId).ValueGeneratedNever();
 
-                entity.Property(e => e.AuthorUsername).IsFixedLength();
-
                 entity.Property(e => e.CommentDate).IsFixedLength();
             });
 
@@ -51,21 +50,18 @@ namespace CodeWidgitCore.Models
                     .HasName("PK_Purchase_Record");
 
                 entity.Property(e => e.DownloadId).ValueGeneratedNever();
-
-                entity.Property(e => e.ClientUsername).IsFixedLength();
-
-                entity.Property(e => e.CreatorUsername).IsFixedLength();
-
-                entity.Property(e => e.DownloadDate).IsFixedLength();
-
-                entity.Property(e => e.WidgitDescription).IsFixedLength();
-
-                entity.Property(e => e.WidgitName).IsFixedLength();
             });
 
             modelBuilder.Entity<Follower>(entity =>
             {
                 entity.Property(e => e.FollowId).ValueGeneratedNever();
+            });
+
+            modelBuilder.Entity<Hashtag>(entity =>
+            {
+                entity.Property(e => e.HashtagId).ValueGeneratedNever();
+
+                entity.Property(e => e.Hashtag1).IsFixedLength();
             });
 
             modelBuilder.Entity<Like>(entity =>

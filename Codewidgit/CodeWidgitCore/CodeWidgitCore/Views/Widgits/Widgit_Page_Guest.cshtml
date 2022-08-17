@@ -177,17 +177,29 @@
 
 
     function Get_Widgit() {
-        /* Select text area by id*/
-        var Text = document.getElementById("widgit_string");
-        /* Select the text inside text area. */
+        var WidgitId = $("#WidgitId").text();
+        var Text = document.getElementById("widgit_string"); 
         Text.select();
-        /* Copy selected text into clipboard */
         navigator.clipboard.writeText(Text.value);
-        swal({
-          title: "Woo-Hoo",
-          text: "Your Widgit's code has been copy to your clipboard!",
-          icon: "success",
-          button: "ok",
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("DownloadRecord", "Widgits")',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            data: { WidgitId: WidgitId},
+            dataType: "json",
+            success: function(data) {
+                var return_rating = data;
+                swal({
+                    title: "Woo-Hoo",
+                    text: "Your Widgit's code has been copy to your clipboard!",
+                    icon: "success",
+                    button: "ok",
+                });
+            },
+            error: function() {
+
+            }
         });
     }
 
