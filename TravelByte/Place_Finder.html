@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<header>
+  <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://smtpjs.com/v3/smtp.js"></script>
+  <script type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js">
+  </script>
+  <script type="text/javascript">
+  (function(){
+    emailjs.init("NwlaenHJtLNO5Zf4Z");
+  })();
+  </script>
+</header>
+
+<style>
+  html {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
+
+  body {
+    font-family: 'Open Sans';
+    margin: 0;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    position: relative;
+    color: #0a0a0b;
+  }
+
+  /*
+  CSS Code Section for The input field
+  */
+  *,
+  *:before,
+  *:after {
+    -webkit-box-sizing: inherit;
+    -moz-box-sizing: inherit;
+    box-sizing: inherit;
+  }
+
+  ::-webkit-input-placeholder {
+    color: #56585b;
+  }
+
+  ::-moz-placeholder {
+    color: #56585b;
+  }
+
+  :-moz-placeholder {
+    color: #56585b;
+  }
+
+  .bi bi-globe-americas,
+  .bi bi-geo-alt-fill,
+  .bi bi-search,
+  .bi bi-envelope-at {
+    font-size: 1.3rem;
+  }
+
+  .cover {
+    height: auto;
+    width: 100%;
+    padding: 20px 50px;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+  }
+
+  #go {
+    background: #ed4545;
+    border: 1px solid #ed4545;
+    color: #fff;
+    padding: 15px 50px;
+    cursor: pointer;
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    transition: all 0.2s;
+    font-size: 1.2rem;
+    margin: 50px;
+  }
+
+  #Click_Hover_Info
+  {
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center; 
+  }
+
+  #go:hover {
+    background: #f39d9d;
+    border: 1px solid #f39d9d;
+  }
+
+  #send {
+    background: #ed4545;
+    border: 1px solid #ed4545;
+    color: #fff;
+    padding: 10px 40px;
+    cursor: pointer;
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    transition: all 0.2s;
+    font-size: 1.2rem;
+    margin: 50px;
+  }
+
+  #send:hover {
+    background: #f39d9d;
+    border: 1px solid #f39d9d;
+  }
+
+  
+  .flex-form {
+    display: -webkit-box;
+    display: flex;
+    /*z-index: 10;*/
+    position: relative;
+    width: 800px;
+    box-shadow: 4px 8px 16px rgba(0, 0, 0, 0.3);
+  }
+
+  fieldset {
+    border-radius: 1em;
+    border: 0.2em solid white;
+    padding: 15px;
+    color: white;
+  }
+
+  legend {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+
+  #go>* {
+    border: 0;
+    padding: 0 0 0 10px;
+    background: #fff;
+    line-height: 50px;
+    font-size: 1rem;
+    border-radius: 0;
+    outline: 0;
+    -webkit-appearance: none;
+  }
+
+  #send>* {
+    border: 0;
+    padding: 0 0 0 10px;
+    background: #fff;
+    line-height: 50px;
+    font-size: 1rem;
+    border-radius: 0;
+    outline: 0;
+    -webkit-appearance: none;
+  }
+
+  .flex-form>* {
+    border: 0;
+    padding: 0 0 0 10px;
+    background: #fff;
+    line-height: 50px;
+    font-size: 1rem;
+    border-radius: 0;
+    outline: 0;
+    -webkit-appearance: none;
+  }
+
+  input[type="search"] {
+    flex-basis: 800px;
+  }
+
+
+  /*
+  CSS Code Section for The Results flex Box
+  */
+  * {
+    box-sizing: border-box;
+  }
+
+  .flex-container {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+  }
+
+  .flex-item {
+    height: 200px;
+    padding: 5px;;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #flex-item-1 {
+    background-color: #8fa3b4;
+    font-size: auto;
+    padding: 10px;
+    flex: 50%;
+  }
+
+  #flex-item-2 {
+    background-color: #f39d9d;
+    font-size: auto;
+    padding: 10px;
+    flex: 50%;
+  }
+
+  #flex-item-3 {
+    background-color: #677d8e;
+    font-size: auto;
+    padding: 10px;
+    flex: 50%;
+  }
+
+  #flex-item-4 {
+    background-color: #d5d5d5;
+    font-size: auto;
+    padding: 10px;
+    flex: 50%;
+  }
+
+  #flex-item-5 {
+    background-color: #a4c8d8;
+    font-size: auto;
+    padding: 10px;
+    flex: 50%;
+  }
+
+  #flex-item-6 {
+    background-color: #f9bebe;
+    font-size: auto;
+    padding: 10px;
+    flex: 50%;
+  }
+
+  /*How all content Reacts after width is reduced to 800px*/
+  @media all and (max-width:1000px) {
+    body {
+      font-size: 0.8rem;
+    }
+
+    .flex-form {
+      width: 100%;
+      font-size: 0.4rem;
+    }
+
+    input[type="search"] {
+      flex-basis: 100%;
+      font-size: 11.5px;
+    }
+
+    .flex-form>* {
+      font-size: 0.9rem;
+    }
+
+    #go>* {
+      font-size: 0.9rem;
+    }
+
+    #send>* {
+      font-size: 0.9rem;
+    }
+
+    .cover {
+      padding: 20px;
+    }
+
+    .flex-container {
+      flex-direction: column;
+    }
+
+  }
+
+  /*How all content Reacts after width is reduced to 360px*/
+  @media all and (max-width:360px) {
+    .flex-form {
+      display: -webkit-box;
+      display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      flex-direction: column;
+    }
+
+    input[type="search"] {
+      flex-basis: 0;
+    }
+
+    label {
+      display: none;
+    }
+
+  }
+
+  /*Overlay*/
+  #overlay {
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 2;
+    cursor: pointer;
+  }
+
+  /*Loader*/
+  .loader {
+    width: 100%;
+    height: 4.8px;
+    top: 50%;
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+  }
+  .loader::after {
+    content: '';  
+    width: 96px;
+    height: 4.8px;
+    background: #FFF;
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+    animation: hitZak 0.6s ease-in-out infinite alternate;
+  }
+
+  @keyframes hitZak {
+    0% {
+      left: 0;
+      transform: translateX(-1%);
+    }
+    100% {
+      left: 100%;
+      transform: translateX(-99%);
+    }
+  }
+
+  #Loader_Text {
+    color: #FFF;
+    position: fixed;
+    font-size: 35px;
+    top: 43%;
+    left: 50%;
+    transform: translate(-43%, -50%);
+  } 
+
+</style>
+
+<body>
+  <div id="overlay">
+    <p id="Loader_Text">Loading</p>
+    <span class="loader">
+    </span>
+  </div>
+
+  <div class="container">
+    <div class="cover">
+      <form class="flex-form">
+        <label for="">
+          <i class="bi bi-globe-americas"></i>
+        </label>
+        <input type="search" id="country" placeholder="What country do you wish to visit"
+          type="text">
+      </form>
+
+      <br>
+
+      <form class="flex-form">
+        <label for="">
+          <i class="bi bi-geo-alt-fill"></i>
+        </label>
+        <input type="search" id="place"
+          placeholder="Which area do you wish to visit" type="text" type="text">
+      </form>
+
+      <br>
+
+      <form class="flex-form">
+        <label for="">
+          <i class="bi bi-search"></i>
+        </label>
+        <input type="search" id="thing" placeholder="Restaurants, Land Marks, Museums, ect."
+          type="text" type="text">
+      </form>
+
+      <br>
+      <br>
+      <br>
+
+      <fieldset>
+        <legend>Include trendy Instagram & TikTok places?</legend>
+        <input type="checkbox" id="trendy_y" name="trendy_y" value="yes">
+        <label for="trendy_y">Yes</label><br>
+      </fieldset>
+      <input type="button" id="go" value="Lets go!">
+      <br>
+      <p id="Click_Hover_Info">Click or hover on the locations to view a description</p>
+
+    </div>
+  </div>
+
+  <div class="flex-container">
+    <div class="flex-item" id="flex-item-1">
+      <div class="Location" id="Location-1">
+        Location 1
+      </div>
+      <div class="Description" id="Description-1">
+        Fill out the form above to view your results
+      </div>
+    </div>
+
+    <div class="flex-item" id="flex-item-2">
+      <div class="Location" id="Location-2">
+        Location 2
+      </div>
+      <div class="Description" id="Description-2">
+        Fill out the form above to view your results
+      </div>
+    </div>
+
+    <div class="flex-item" id="flex-item-3">
+      <div class="Location" id="Location-3">
+        Location 3
+      </div>
+      <div class="Description" id="Description-3">
+        Fill out the form above to view your results
+      </div>
+    </div>
+  </div>
+
+  <div class="flex-container">
+    <div class="flex-item" id="flex-item-4">
+      <div class="Location" id="Location-4">
+        Location 4
+      </div>
+      <div class="Description" id="Description-4">
+        Fill out the form above to view your results
+      </div>
+    </div>
+    <div class="flex-item" id="flex-item-5">
+      <div class="Location" id="Location-5">
+        Location 5
+      </div>
+      <div class="Description" id="Description-5">
+        Fill out the form above to view your results
+      </div>
+    </div>
+    <div class="flex-item" id="flex-item-6">
+      <div class="Location" id="Location-6">
+        Location 6
+      </div>
+      <div class="Description" id="Description-6">
+        Fill out the form above to view your results
+      </div>
+    </div>
+  </div>
+
+  <br>
+
+  <div class="container" id="Email_Container">
+    <div class="cover">
+      <form class="flex-form">
+        <label for="">
+          <i class="bi bi-envelope-at"></i>
+        </label>
+        <input type="search" id="user_email" placeholder="Send results to your email">
+      </form>
+
+      <br>
+
+      <fieldset>
+        <legend>By entering your email you agree to Travel Byte's TOS</legend>
+        <input type="checkbox" id="tos_y" name="tos_y" value="yes">
+        <label for="tos_y">Yes</label><br>
+      </fieldset>
+      <input type="button" id="send" value="Send">
+    </div>
+  </div>
+
+</body>
+
+</html>
+
+<script>
+  $(document).ready(function () {
+
+    var Global_Location_Set_1;
+    var Global_Location_Set_2;
+    var Global_Location_Set_3;
+    var Global_Location_Set_4;
+    var Global_Location_Set_5;
+    var Global_Area = "";
+    var Global_Place = "";
+    var Global_Thing = "";
+
+    $(document).keypress(function(event) {
+        if (event.keyCode === 13) {
+          event.preventDefault();
+          var country = $("#country").val();
+          var place = $("#place").val();
+          var thing = $("#thing").val();
+          var trendy = document.querySelector("#trendy_y").checked;
+          Global_Area = country;
+          Global_Place = place;
+          Global_Thing = thing;
+
+          console.log(country);
+          console.log(place);
+          console.log(thing);
+          console.log(trendy);
+
+          if(country == "" || place == "" || thing == "") {
+            return 0;
+          }
+
+          Loader_On();
+
+          if (trendy) {
+            var trendy_prompt = " Pick places that are known to be trendy on TikTok and or Instagram."
+            openai_find(country, place, thing, trendy_prompt);
+          }
+          else {
+            var trendy_prompt = ""
+            openai_find(country, place, thing, trendy_prompt);
+          }
+        }
+    });
+
+    function Send_Email(User_Email, Area, Location_Set_1, Location_Set_2, Location_Set_3, Location_Set_4, Location_Set_5, Location_Set_6)
+    {
+      var templateParams = {
+            User_Email: User_Email,
+            Area: Area,
+            Location_1: Location_Set_1[0] ,
+            Desciption_1: Location_Set_1[1] ,
+            Location_2: Location_Set_2[0] ,
+            Desciption_2: Location_Set_2[1] ,
+            Location_3: Location_Set_3[0] ,
+            Desciption_3: Location_Set_3[1] ,
+            Location_4: Location_Set_4[0] ,
+            Desciption_4: Location_Set_4[1] ,
+            Location_5: Location_Set_5[0] ,
+            Desciption_5: Location_Set_5[1],
+      };
+        
+        emailjs.send('service_v3fj9y9', 'template_qpmsb0r', templateParams) //use your Service ID and Template ID
+            .then(function(response) {
+            console.log('SUCCESS!', response.status, response.text);
+            }, function(error) {
+            console.log('FAILED...', error);
+        });
+    }
+
+    $('#Description-1').css('display', 'none');
+    $('#Description-2').css('display', 'none');
+    $('#Description-3').css('display', 'none');
+    $('#Description-4').css('display', 'none');
+    $('#Description-5').css('display', 'none');
+    $('#Description-6').css('display', 'none');
+
+    function Loader_On() {
+      document.getElementById("overlay").style.display = "block";
+    }
+    function Loader_Off() {
+      document.getElementById("overlay").style.display = "none";
+    }
+
+    $(window).resize(function() {
+      if( $(this).width() < 1200 ) {
+          $('#country').attr('placeholder','Country or State');
+          $('#place').attr('placeholder','City or Area');
+          $('#thing').attr('placeholder','Restaurants, Land Marks, Museums, ect.');
+      }
+      if( $(this).width() >= 1200 ) {
+          $('#country').attr('placeholder','What country do you wish to visit');
+          $('#place').attr('placeholder','Which area do you wish to visit');
+          $('#thing').attr('placeholder','Restaurants, Land Marks, Museums, ect.');
+      }
+    });
+
+    $(function () {
+      $('#flex-item-1').hover(function () {
+        $('#Location-1').css('display', 'none');
+        $('#Description-1').css('display', 'flex');
+      }, function () {
+        // on mouseout, reset the background colour
+        $('#Description-1').css('display', 'none');
+        $('#Location-1').css('display', 'flex');
+      });
+    });
+
+    $(function () {
+      $('#flex-item-2').hover(function () {
+        $('#Location-2').css('display', 'none');
+        $('#Description-2').css('display', 'flex');
+      }, function () {
+        // on mouseout, reset the background colour
+        $('#Description-2').css('display', 'none');
+        $('#Location-2').css('display', 'flex');
+      });
+    });
+
+    $(function () {
+      $('#flex-item-3').hover(function () {
+        $('#Location-3').css('display', 'none');
+        $('#Description-3').css('display', 'flex');
+      }, function () {
+        // on mouseout, reset the background colour
+        $('#Description-3').css('display', 'none');
+        $('#Location-3').css('display', 'flex');
+      });
+    });
+
+    $(function () {
+      $('#flex-item-4').hover(function () {
+        $('#Location-4').css('display', 'none');
+        $('#Description-4').css('display', 'flex');
+      }, function () {
+        // on mouseout, reset the background colour
+        $('#Description-4').css('display', 'none');
+        $('#Location-4').css('display', 'flex');
+      });
+    });
+
+    $(function () {
+      $('#flex-item-5').hover(function () {
+        $('#Location-5').css('display', 'none');
+        $('#Description-5').css('display', 'flex');
+      }, function () {
+        // on mouseout, reset the background colour
+        $('#Description-5').css('display', 'none');
+        $('#Location-5').css('display', 'flex');
+      });
+    });
+
+    $(function () {
+      $('#flex-item-6').hover(function () {
+        $('#Location-6').css('display', 'none');
+        $('#Description-6').css('display', 'flex');
+      }, function () {
+        // on mouseout, reset the background colour
+        $('#Description-6').css('display', 'none');
+        $('#Location-6').css('display', 'flex');
+      });
+    });
+
+    let open_ai_response;
+
+    async function openai_find(country, area, thing, trendy_prompt) {
+
+      var url = "https://api.openai.com/v1/engines/text-davinci-003/completions";
+
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", url);
+
+      xhr.setRequestHeader("Content-Type", "application/json");
+      xhr.setRequestHeader("Authorization", "Bearer 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");
+
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+          //console.log(xhr.status);
+          //console.log(xhr.responseText);
+          open_ai_response = xhr.responseText;
+          console.log(open_ai_response);
+          Get_Response(open_ai_response, area);
+        }
+      };
+/*"prompt": "Find me 6 ${thing} in ${country}, specifically ${area} and explain the reasoning for their selection. ${trendy_prompt}. Use '1.' list formating and separate the location and description using ':'.",*/
+      var data = `{
+        "prompt": "Find me 6 ${thing} in ${country}, specifically ${area} and explain the reasoning for their selection. ${trendy_prompt}. Use '1.' list formating and separate the ${thing} and description using ':'.",
+        "temperature": 0.7,
+        "max_tokens": 800,
+        "top_p": 1,
+        "frequency_penalty": 0,
+        "presence_penalty": 0
+      }`;
+
+      xhr.send(data);
+    }
+
+
+    $("#go").click(function () {
+      var country = $("#country").val();
+      var place = $("#place").val();
+      var thing = $("#thing").val();
+      var trendy = document.querySelector("#trendy_y").checked;
+      Global_Area = country;
+      Global_Place = place;
+      Global_Thing = thing;
+
+      console.log(country);
+      console.log(place);
+      console.log(thing);
+      console.log(trendy);
+
+      if(country == "" || place == "" || thing == "") {
+        return 0;
+      }
+
+      Loader_On();
+
+      if (trendy) {
+        var trendy_prompt = " Pick places that are known to be trendy on TikTok and or Instagram."
+        openai_find(country, place, thing, trendy_prompt);
+      }
+      else {
+        var trendy_prompt = ""
+        openai_find(country, place, thing, trendy_prompt);
+      }
+
+    });
+
+
+    function Extract(str, prefix, suffix) {
+      var s = str;
+
+      var i = s.indexOf(prefix);
+      if (i >= 0) {
+        s = s.substring(i + prefix.length);
+      }
+      else {
+        return '';
+      }
+      if (suffix) {
+        i = s.indexOf(suffix);
+        if (i >= 0) {
+          s = s.substring(0, i);
+        }
+        else {
+          return '';
+        }
+      }
+      return s;
+
+    }
+
+    $("#send").click(function () {
+      var User_Email = $("#user_email").val();
+      console.log(User_Email);
+      if(Global_Area == "" || Global_Place == "" || Global_Thing == "") {
+        
+        Swal.fire({
+          icon: 'question',
+          title: 'Oops...',
+          text: 'Please fill out the form above first!',
+          position: 'bottom',
+          showConfirmButton: false,
+          timer: 2000
+        })
+      }
+
+      if ($('#tos_y').prop('checked') && User_Email != "") {
+        Loader_On();
+        Swal.fire({
+          icon: 'success',
+          title: 'Sent!',
+          text: 'Travel Recommendations Sent!',
+          position: 'bottom',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        Send_Email(User_Email, Global_Area, Global_Location_Set_1, Global_Location_Set_2, Global_Location_Set_3, Global_Location_Set_4, Global_Location_Set_5);
+        Loader_Off();
+      }
+      else
+      {
+        Swal.fire({
+          icon: 'question',
+          title: 'Oops...',
+          text: 'Please check your inputs!',
+          position: 'bottom',
+          showConfirmButton: false,
+          timer: 2000
+        })
+      }
+    });
+
+
+    function display(Location_Set_1, Location_Set_2, Location_Set_3, Location_Set_4, Location_Set_5, Location_Set_6, area ) {
+
+      document.getElementById("Location-1").innerHTML = Location_Set_1[0];
+      document.getElementById("Location-2").innerHTML = Location_Set_2[0];
+      document.getElementById("Location-3").innerHTML = Location_Set_3[0];
+      document.getElementById("Location-4").innerHTML = Location_Set_4[0];
+      document.getElementById("Location-5").innerHTML = Location_Set_5[0];
+      document.getElementById("Location-6").innerHTML = Location_Set_6[0];
+
+      document.getElementById("Description-1").innerHTML = Location_Set_1[1];
+      document.getElementById("Description-2").innerHTML = Location_Set_2[1];
+      document.getElementById("Description-3").innerHTML = Location_Set_3[1];
+      document.getElementById("Description-4").innerHTML = Location_Set_4[1];
+      document.getElementById("Description-5").innerHTML = Location_Set_5[1];
+      document.getElementById("Description-6").innerHTML = Location_Set_6[1];
+
+      Global_Location_Set_1 = Location_Set_1;
+      Global_Location_Set_2 = Location_Set_2;
+      Global_Location_Set_3 = Location_Set_3;
+      Global_Location_Set_4 = Location_Set_4;
+      Global_Location_Set_5 = Location_Set_5;
+      Global_Location_Set_6 = Location_Set_6;
+      Global_Area = area;
+
+    }
+
+    function Get_Response(AI_Response, area) {
+
+      AI_Response = AI_Response.toString();
+
+      var Option_1 = Extract(AI_Response, "1. ", "\\n\\n2");
+      const Location_Set_1 = Option_1.split(": ", 2);
+      console.log(Location_Set_1[0]);
+      console.log(Location_Set_1[1]);
+
+      var Option_2 = Extract(AI_Response, "2. ", "\\n\\n3");
+      const Location_Set_2 = Option_2.split(": ", 2);
+      console.log(Location_Set_2[0]);
+      console.log(Location_Set_2[1]);
+
+      var Option_3 = Extract(AI_Response, "3. ", '\\n\\n4');
+      const Location_Set_3 = Option_3.split(": ", 2);
+      console.log(Location_Set_3[0]);
+      console.log(Location_Set_3[1]);
+
+
+      var Option_4 = Extract(AI_Response, "4. ", "\\n\\n5");
+      const Location_Set_4 = Option_4.split(": ", 2);
+      console.log(Location_Set_4[0]);
+      console.log(Location_Set_4[1]);
+
+      var Option_5 = Extract(AI_Response, "5. ", '\\n\\n6');
+      const Location_Set_5 = Option_5.split(": ", 2);
+      console.log(Location_Set_5[0]);
+      console.log(Location_Set_5[1]);
+
+      var Option_6 = Extract(AI_Response, "6. ", '",');
+      const Location_Set_6 = Option_6.split(": ", 2);
+      console.log(Location_Set_6[0]);
+      console.log(Location_Set_6[1]);
+
+      display(Location_Set_1, Location_Set_2, Location_Set_3, Location_Set_4, Location_Set_5, Location_Set_6, area);
+      Loader_Off();
+    }
+  });
+
+
+</script>

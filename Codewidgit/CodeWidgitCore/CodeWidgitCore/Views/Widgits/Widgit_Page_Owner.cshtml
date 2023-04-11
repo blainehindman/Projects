@@ -1,29 +1,43 @@
 ﻿@model IEnumerable<WidgitFeedViewModel>
+@{
+    var widgitModel = Model.FirstOrDefault();
+}
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>
 
 
 <div class="container">
-
-    @foreach (var widgit in Model)
-    {
-        <h1><b>@widgit.WidgitName</b></h1>
-        <h4>@widgit.WidgitDescription</h4>
-        <iframe srcdoc="@widgit.WidgitFile" style="width:100%; height: 350px;"></iframe>
+    <h1><b>@widgitModel.WidgitName</b></h1>
+        <h4>@widgitModel.WidgitDescription</h4>
+        <p id="WidgitId" hidden>@widgitModel.WidgitId</p>
+        <iframe srcdoc="@widgitModel.WidgitFile" style="width:100%; height: 350px;"></iframe>
         <div class="container">
             <div class="row">
-                <div class="col">
-                    <h5>Basic Analytics:</h5>
-                    <p><img src="~/Images/view.png" class="wigit-content-icons">@widgit.WidgitViews</p>
-                    <p><img src="~/Images/download.png" class="wigit-content-icons">@widgit.WidgitDownloads</p>
-                    <p><img src="~/Images/heart.png" class="wigit-content-icons">@widgit.WidgitLikesCount</p>
-                    <p><img src="~/Images/star.png" class="wigit-content-icons">@widgit.WidgitRating</p>
-                </div>
-                <div class="col">
-                    <p><b>Creator - @widgit.CreatorUsername</b></p>
-                    <p>Published -@widgit.PublishedDate</p>
-                    <p>Updated - @widgit.UpdatedDate</p>
-                </div>
-            </div>
-        </div>
-    }
+                <div class="col" style="">
+                    <h3>Widgit</h3>
+                    <p><img id="eye_icon" src="~/Images/view.png" class="wigit-content-icons">@widgitModel.WidgitViews</p>
+                    <p><img id="heart_icon" src="~/Images/heart.png" class="wigit-content-icons" style="">@widgitModel.WidgitLikesCount</p>
+                    <p><img id="star_icon" src="~/Images/star.png" class="wigit-content-icons">@widgitModel.WidgitRating</p>
 
+                    <p>Published -@widgitModel.PublishedDate</p>
+                    <p>Updated - @widgitModel.UpdatedDate</p>
+                    <button type="button" class="btn btn-primary btn-lg btn-block" onclick="Get_Widgit()">Get Widgit</button>
+                </div>
+                <div class="col">
+                    <h3>Creator</h3>
+                    <p><b>Creator - @widgitModel.CreatorUsername</b></p>
+                    <a asp-area="" asp-route-id="@widgitModel.WidgitId" asp-controller="Widgits" asp-action="Edit">
+                        <button type="button" id="edit" class="btn btn-primary btn-lg btn-block" >Edit</button>
+                    </a>
+            </div>
+            </div>
+
+        </div>
+            <textarea id="widgit_string" hidden>@widgitModel.WidgitFile</textarea>
+
+            
 </div>
+
+<script>
+    
+</script>

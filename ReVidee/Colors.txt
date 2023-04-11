@@ -1,0 +1,9 @@
+Revidee Colors:
+
+Green: 90cf2c
+
+Orange: ec851c
+
+Blue: 4ac3e0
+
+Purple: 5d218a

@@ -215,7 +215,35 @@ namespace CodeWidgitCore.Controllers
 
         public async Task<IActionResult> Widgit_Page_Owner(Widgit widgit)
         {
-            return View();
+            var widgits = _context.Widgits.Where(u => u.WidgitId == widgit.WidgitId).ToList();
+            var widgitContent = _context.WidgitContents.Where(u => u.WidgitFileId == widgit.WidgitId).ToList();
+            var user = await _userManager.GetUserAsync(User);
+            var widgitFeedViewModel = (from w in widgits
+                                       join wc in widgitContent on w.WidgitId equals wc.WidgitFileId
+                                       select new WidgitFeedViewModel()
+                                       {
+                                           //Wigit Data
+                                           WidgitId = w.WidgitId,
+                                           WidgitName = w.WidgitName,
+                                           WidgitDescription = w.WidgitDescription,
+                                           CreatorId = w.CreatorId,
+                                           CreatorUsername = w.CreatorUsername,
+                                           PublishedDate = w.PublishedDate,
+                                           UpdatedDate = w.UpdatedDate,
+                                           WidgitDownloads = w.WidgitDownloads,
+                                           WidgitRating = w.WidgitRating,
+                                           WidgitRatingsCount = w.WidgitRatingsCount,
+                                           WidgitRatingTotal = w.WidgitRatingTotal,
+                                           WidgitCommentsCount = w.WidgitCommentsCount,
+                                           WidgitViews = w.WidgitViews,
+                                           WidgitLikesCount = w.WidgitLikesCount,
+                                           //Widgit Content Data
+                                           WidgitFileId = wc.WidgitFileId,
+                                           WidgitFile = wc.WidgitFile
+
+                                       }).ToList();
+
+            return View(widgitFeedViewModel);
         }
 
         [HttpPost]
@@ -405,12 +433,25 @@ namespace CodeWidgitCore.Controllers
                 return NotFound();
             }
 
-            var widgit = await _context.Widgits.FindAsync(id);
+            Widgit widgit = await _context.Widgits.FindAsync(id);
+            WidgitContent widgitContent = await _context.WidgitContents.FindAsync(id);
+            WidgitViewModel DynamicWidgitModel = new WidgitViewModel();
+
             if (widgit == null)
             {
                 return NotFound();
             }
-            return View(widgit);
+            if (widgitContent == null)
+            {
+                return NotFound();
+            }
+
+
+            DynamicWidgitModel.Widgit.WidgitName = widgit.WidgitName;
+            DynamicWidgitModel.Widgit.WidgitDescription = widgit.WidgitDescription;
+            DynamicWidgitModel.WidgitContent.WidgitFile = widgitContent.WidgitFile;
+
+            return View(DynamicWidgitModel);
         }
 
         // POST: Widgits/Edit/5
@@ -476,9 +517,26 @@ namespace CodeWidgitCore.Controllers
                 return Problem("Entity set 'CodeWidgitCoreDBContext.Widgits'  is null.");
             }
             var widgit = await _context.Widgits.FindAsync(id);
+
             if (widgit != null)
             {
                 _context.Widgits.Remove(widgit);
+                
+                foreach(var WidgitLike in _context.Likes)
+                {
+                    if(WidgitLike.WidgitId == widgit.WidgitId)
+                    {
+                        _context.Likes.Remove(WidgitLike);
+                    }
+                }
+                foreach(var WidgitDownload in _context.DownloadRecords)
+                {
+                    if(WidgitDownload.WidgitId == widgit.WidgitId)
+                    {
+                        _context.DownloadRecords.Remove(WidgitDownload);
+                    }
+                }
+
             }
             
             await _context.SaveChangesAsync();

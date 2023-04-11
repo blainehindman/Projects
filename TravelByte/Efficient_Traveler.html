@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<header>
+  <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script src="https://smtpjs.com/v3/smtp.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js">
+  </script>
+  <script type="text/javascript">
+  (function(){
+    emailjs.init("NwlaenHJtLNO5Zf4Z");
+  })();
+  </script>
+</header>
+
+<style>
+  html {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Open Sans';
+    margin: 0;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    color: #0a0a0b;
+  }
+
+  /*
+  CSS Code Section for The input field
+  */
+  *,
+  *:before,
+  *:after {
+    -webkit-box-sizing: inherit;
+    -moz-box-sizing: inherit;
+    box-sizing: inherit;
+  }
+
+  ::-webkit-input-placeholder {
+    color: #56585b;
+  }
+
+  ::-moz-placeholder {
+    color: #56585b;
+  }
+
+  :-moz-placeholder {
+    color: #56585b;
+  }
+
+  .bi bi-geo-alt,
+  .bi bi-pin-map, 
+  .bi bi-envelope-at {
+    font-size: 1.3rem;
+  }
+
+  .cover {
+    height: auto;
+    width: 100%;
+    padding: 20px 50px;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+  }
+
+  #go {
+    background: #ed4545;
+    border: 1px solid #ed4545;
+    color: #fff;
+    padding: 15px 50px;
+    cursor: pointer;
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    transition: all 0.2s;
+    font-size: 1.2rem;
+    margin: 50px;
+  }
+
+  #Click_Hover_Info
+  {
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center; 
+  }
+
+  #go:hover {
+    background: #f39d9d;
+    border: 1px solid #f39d9d;
+  }
+
+  #send {
+    background: #ed4545;
+    border: 1px solid #ed4545;
+    color: #fff;
+    padding: 10px 40px;
+    cursor: pointer;
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    transition: all 0.2s;
+    font-size: 1.2rem;
+    margin: 50px;
+  }
+
+  #send:hover {
+    background: #f39d9d;
+    border: 1px solid #f39d9d;
+  }
+
+  
+  .flex-form {
+    display: -webkit-box;
+    display: flex;
+    /*z-index: 10;*/
+    position: relative;
+    width: 800px;
+    box-shadow: 4px 8px 16px rgba(0, 0, 0, 0.3);
+  }
+
+  fieldset {
+    border-radius: 1em;
+    border: 0.2em solid white;
+    padding: 15px;
+    color: white;
+  }
+
+  legend {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+
+  #go>* {
+    border: 0;
+    padding: 0 0 0 10px;
+    background: #fff;
+    line-height: 50px;
+    font-size: 1rem;
+    border-radius: 0;
+    outline: 0;
+    -webkit-appearance: none;
+  }
+
+  #send>* {
+    border: 0;
+    padding: 0 0 0 10px;
+    background: #fff;
+    line-height: 50px;
+    font-size: 1rem;
+    border-radius: 0;
+    outline: 0;
+    -webkit-appearance: none;
+  }
+
+  .flex-form>* {
+    border: 0;
+    padding: 0 0 0 10px;
+    background: #fff;
+    line-height: 50px;
+    font-size: 1rem;
+    border-radius: 0;
+    outline: 0;
+    -webkit-appearance: none;
+  }
+
+  input[type="search"] {
+    flex-basis: 800px;
+  }
+
+
+  /*
+  CSS Code Section for The Results flex Box
+  */
+  * {
+    box-sizing: border-box;
+  }
+
+  .flex-container {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+  }
+
+  .flex-item {
+    height: 200px;
+    padding: 5px;;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #flex-item-1 {
+    background-color: #f39d9d;
+    font-size: auto;
+    padding: 10px;
+    flex: 50%;
+  }
+
+  
+
+  /*How all content Reacts after width is reduced to 800px*/
+  @media all and (max-width:1000px) {
+    body {
+      font-size: 0.8rem;
+    }
+
+    .flex-form {
+      width: 100%;
+      font-size: 0.4rem;
+    }
+
+    input[type="search"] {
+      flex-basis: 100%;
+    }
+
+    .flex-form>* {
+      font-size: 0.9rem;
+    }
+
+    #go>* {
+      font-size: 0.9rem;
+    }
+
+    #send>* {
+      font-size: 0.9rem;
+    }
+
+    .cover {
+      padding: 20px;
+    }
+
+    .flex-container {
+      flex-direction: column;
+    }
+
+  }
+
+  /*How all content Reacts after width is reduced to 360px*/
+  @media all and (max-width:360px) {
+    .flex-form {
+      display: -webkit-box;
+      display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      flex-direction: column;
+    }
+
+    input[type="search"] {
+      flex-basis: 0;
+    }
+
+    label {
+      display: none;
+    }
+
+  }
+
+  /*Overlay*/
+  #overlay {
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 2;
+    cursor: pointer;
+  }
+
+  /*Loader*/
+  .loader {
+    width: 100%;
+    height: 4.8px;
+    top: 50%;
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+  }
+  .loader::after {
+    content: '';  
+    width: 96px;
+    height: 4.8px;
+    background: #FFF;
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+    animation: hitZak 0.6s ease-in-out infinite alternate;
+  }
+
+  @keyframes hitZak {
+    0% {
+      left: 0;
+      transform: translateX(-1%);
+    }
+    100% {
+      left: 100%;
+      transform: translateX(-99%);
+    }
+  }
+  
+  #Loader_Text {
+    color: #FFF;
+    position: fixed;
+    font-size: 35px;
+    top: 43%;
+    left: 50%;
+    transform: translate(-43%, -50%);
+  } 
+
+</style>
+
+<body>
+  <div id="overlay">
+    <p id="Loader_Text">Loading</p>
+    <span class="loader">
+    </span>
+  </div>
+
+  <div class="container">
+    <div class="cover">
+      <form class="flex-form">
+        <label for="">
+            <i class="bi bi-geo-alt"></i>
+        </label>
+        <input type="search" id="Search_Location_1" placeholder="London England"
+          type="text">
+      </form>
+
+      <br>
+
+      <form class="flex-form">
+        <label for="">
+            <i class="bi bi-pin-map"></i>
+        </label>
+        <input type="search" id="Search_Location_2" placeholder="Dublin Ireland"
+          type="text">
+      </form>
+      <br>
+      <input type="button" id="go" value="Lets go!">
+      <br>
+      <p id="Click_Hover_Info">Click or hover on the locations to view a description</p>
+
+    </div>
+  </div>
+
+  <div class="flex-container">
+    <div class="flex-item" id="flex-item-1">
+      <div class="Route" id="Route">
+        Efficient Travel Route
+      </div>
+      <div class="Route_Description" id="Route_Description">
+        Fill out the form above to view your results
+      </div>
+    </div>
+  </div>
+
+  <br>
+  <br>
+
+  <div class="container">
+    <div class="cover">
+      <form class="flex-form">
+        <label for="">
+          <i class="bi bi-envelope-at"></i>
+        </label>
+        <input type="search" id="user_email" placeholder="Send results to your email">
+      </form>
+
+      <br>
+
+      <fieldset>
+        <legend>By entering your email you agree to Travel Byte's TOS</legend>
+        <input type="checkbox" id="tos_y" name="tos_y" value="yes">
+        <label for="tos_y">Yes</label><br>
+      </fieldset>
+      <input type="button" id="send" value="Send">
+    </div>
+  </div>
+
+</body>
+
+</html>
+
+<script>
+  $(document).ready(function () {
+
+    var Global_Location_1 = "";
+    var Global_Location_1 = "";
+    var Global_Route_Description = "";
+
+
+    $(document).keypress(function(event) {
+        if (event.keyCode === 13) {
+          event.preventDefault();
+          var Location_1 = $("#Search_Location_1").val();
+          var Location_2 = $("#Search_Location_2").val();
+
+          if(Location_1 == "" || Location_2 == "") {
+            return 0;
+          }
+
+          Loader_On();
+          Global_Location_1 = Location_1;
+          Global_Location_2 = Location_2;
+          console.log(Location_1);
+          console.log(Location_2);
+          openai_find(Location_1, Location_2);
+        }
+    });
+
+    function Send_Email(User_Email, Location_1, Location_2, Route_Description)
+    {
+      var templateParams = {
+            User_Email: User_Email,
+            Location_1: Location_1,
+            Location_2: Location_2,
+            Route_Description: Route_Description,
+        };
+        
+        emailjs.send('service_v3fj9y9', 'template_ayfsw1m', templateParams) //use your Service ID and Template ID
+            .then(function(response) {
+            console.log('SUCCESS!', response.status, response.text);
+            }, function(error) {
+            console.log('FAILED...', error);
+        });
+    }
+
+    $('#Route_Description').css('display', 'none');
+
+    function Loader_On() {
+      document.getElementById("overlay").style.display = "block";
+    }
+    function Loader_Off() {
+      document.getElementById("overlay").style.display = "none";
+    }
+
+    $(function () {
+      $('#flex-item-1').hover(function () {
+        $('#Route').css('display', 'none');
+        $('#Route_Description').css('display', 'flex');
+      }, function () {
+        // on mouseout, reset the background colour
+        $('#Route_Description').css('display', 'none');
+        $('#Route').css('display', 'flex');
+      });
+    });
+
+
+    let open_ai_response;
+
+    async function openai_find(Location_1, Location_2) {
+
+      var url = "https://api.openai.com/v1/engines/text-davinci-003/completions";
+
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", url);
+
+      xhr.setRequestHeader("Content-Type", "application/json");
+      xhr.setRequestHeader("Authorization", "Bearer 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");
+
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+          //console.log(xhr.status);
+          //console.log(xhr.responseText);
+          open_ai_response = xhr.responseText;
+          //console.log(open_ai_response);
+          Get_Response(open_ai_response);
+        }
+      };
+
+      var data = `{
+        "prompt": "Find the most efficient way to travel between ${Location_1} and ${Location_2}. Include type of transportation and estimated cost.",
+        "temperature": 0.7,
+        "max_tokens": 800,
+        "top_p": 1,
+        "frequency_penalty": 0,
+        "presence_penalty": 0
+      }`;
+
+      xhr.send(data);
+    }
+
+
+    $("#go").click(function () {
+      var Location_1 = $("#Search_Location_1").val();
+      var Location_2 = $("#Search_Location_2").val();
+
+      if(Location_1 == "" || Location_2 == "") {
+        return 0;
+      }
+
+      Loader_On();
+      Global_Location_1 = Location_1;
+      Global_Location_2 = Location_2;
+      console.log(Location_1);
+      console.log(Location_2);
+      openai_find(Location_1, Location_2);
+    });
+
+
+    function Extract(str, prefix, suffix) {
+      var s = str;
+
+      var i = s.indexOf(prefix);
+      if (i >= 0) {
+        s = s.substring(i + prefix.length);
+      }
+      else {
+        return '';
+      }
+      if (suffix) {
+        i = s.indexOf(suffix);
+        if (i >= 0) {
+          s = s.substring(0, i);
+        }
+        else {
+          return '';
+        }
+      }
+      return s;
+
+    }
+
+    $("#send").click(function () {
+      var User_Email = $("#user_email").val();
+      console.log(User_Email);
+      if(Global_Location_1 == "" || Global_Location_2== "") {
+        Swal.fire({
+          icon: 'question',
+          title: 'Oops...',
+          text: 'Please fill out the form above first!',
+          position: 'bottom',
+          showConfirmButton: false,
+          timer: 2000
+        })
+      }
+      if ($('#tos_y').prop('checked') && User_Email != "") {
+        Loader_On();
+        Swal.fire({
+          icon: 'success',
+          title: 'Sent!',
+          text: 'Travel Route Sent!',
+          position: 'bottom',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        Send_Email(User_Email, Global_Location_1, Global_Location_2, Global_Route_Description);
+        Loader_Off();
+      }
+      else
+      {
+        Swal.fire({
+          icon: 'question',
+          title: 'Oops...',
+          text: 'Please check your inputs!',
+          position: 'bottom',
+          showConfirmButton: false,
+          timer: 2000
+        })
+      }
+    });
+
+    function display(Route_Description) {
+
+      document.getElementById("Route").innerHTML = Global_Location_1 + " to " + Global_Location_2;
+      document.getElementById("Route_Description").innerHTML = Route_Description;
+    }
+
+    function Get_Response(AI_Response) {
+
+      AI_Response = AI_Response.toString();
+      console.log(AI_Response);
+      var Route_Description = Extract(AI_Response, "\\n\\n", '.",');
+      Global_Route_Description = Route_Description;
+
+      display(Route_Description);
+      Loader_Off();
+    }
+  });
+
+
+</script>

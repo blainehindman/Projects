@@ -1,10 +1,8 @@
-﻿@model CodeWidgitCore.Models.Widgit
+﻿@model CodeWidgitCore.Models.WidgitViewModel
 
 @{
     ViewData["Title"] = "Edit";
 }
-
-<h1>Edit</h1>
 
 <h4>Widgit</h4>
 <hr />
@@ -12,56 +10,20 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="WidgitId" />
             <div class="form-group">
-                <label asp-for="WidgitName" class="control-label"></label>
-                <input asp-for="WidgitName" class="form-control" />
-                <span asp-validation-for="WidgitName" class="text-danger"></span>
+                <label asp-for="Widgit.WidgitName" class="control-label"></label>
+                <input asp-for="Widgit.WidgitName" class="form-control" placeholder="@Model.Widgit.WidgitName" />
+                <span asp-validation-for="Widgit.WidgitName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="WidgitDescription" class="control-label"></label>
-                <input asp-for="WidgitDescription" class="form-control" />
-                <span asp-validation-for="WidgitDescription" class="text-danger"></span>
+                <label asp-for="Widgit.WidgitDescription" class="control-label"></label>
+                <input asp-for="Widgit.WidgitDescription" class="form-control"  placeholder="@Model.Widgit.WidgitDescription"/>
+                <span asp-validation-for="Widgit.WidgitDescription" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CreatorId" class="control-label"></label>
-                <input asp-for="CreatorId" class="form-control" />
-                <span asp-validation-for="CreatorId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CreatorUsername" class="control-label"></label>
-                <input asp-for="CreatorUsername" class="form-control" />
-                <span asp-validation-for="CreatorUsername" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PublishedDate" class="control-label"></label>
-                <input asp-for="PublishedDate" class="form-control" />
-                <span asp-validation-for="PublishedDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UpdatedDate" class="control-label"></label>
-                <input asp-for="UpdatedDate" class="form-control" />
-                <span asp-validation-for="UpdatedDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="WidgitDownloads" class="control-label"></label>
-                <input asp-for="WidgitDownloads" class="form-control" />
-                <span asp-validation-for="WidgitDownloads" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="WidgitRating" class="control-label"></label>
-                <input asp-for="WidgitRating" class="form-control" />
-                <span asp-validation-for="WidgitRating" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="WidgitLikesCount" class="control-label"></label>
-                <input asp-for="WidgitLikesCount" class="form-control" />
-                <span asp-validation-for="WidgitLikesCount" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="WidgitCommentsCount" class="control-label"></label>
-                <input asp-for="WidgitCommentsCount" class="form-control" />
-                <span asp-validation-for="WidgitCommentsCount" class="text-danger"></span>
+                <label asp-for="WidgitContent.WidgitFile" class="control-label"></label>
+                <textarea asp-for="WidgitContent.WidgitFile" class="form-control" placeholder="@Model.WidgitContent.WidgitFile"></textarea>
+                <span asp-validation-for="WidgitContent" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

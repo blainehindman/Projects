@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<header>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js">
+    </script>
+    <script type="text/javascript">
+    (function(){
+        emailjs.init("NwlaenHJtLNO5Zf4Z");
+    })();
+    </script>
+</header>
+<body>
+</body>
+
+
+
+</html>
+
+
+<script>
+    $(document).ready(function () {
+        var templateParams = {
+            email: 'blainemichaelhindman@gmail.com',
+            to_name: 'Blaine',
+            message: 'Check this out!'
+        };
+        
+        emailjs.send('service_v3fj9y9', 'template_bdpptgh', templateParams) //use your Service ID and Template ID
+            .then(function(response) {
+            console.log('SUCCESS!', response.status, response.text);
+            }, function(error) {
+            console.log('FAILED...', error);
+        });
+    });
+</script>
